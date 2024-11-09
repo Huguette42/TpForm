@@ -1,0 +1,24 @@
+.signature {
+height: 100px;
+width: 180px;
+border: solid 1px #000;
+}
+
+#contrat {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Ajuster les espaces entre les mots et les lignes */
+body, #contrat {
+    font-family: Arial, sans-serif; /* Utilise une police simple et compatible */
+    letter-spacing: normal; /* Évite les espaces trop larges entre les lettres */
+    word-spacing: normal; /* Contrôle l'espacement entre les mots */
+    line-height: 1.5; /* Ajuste l'espacement entre les lignes pour rendre plus lisible */
+    white-space: normal; /* Assure une gestion correcte des espaces blancs */
+}
+
+/* Limite la largeur du contenu pour qu'il corresponde à la taille du PDF */
+#contrat {
+    max-width: 190mm; /* Ajuste la largeur pour correspondre à la largeur d'une page A4 */
+    margin: 0 auto; /* Centrer le contenu */
+}

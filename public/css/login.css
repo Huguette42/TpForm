@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.loginmain {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(46, 82, 102);
+}
+
+.loginborder {
+    background-color: rgb(159, 177, 188);
+    padding: 50px;
+    border-radius: 25px;
+    width: 500px;
+}
+
+.inputpass {
+    width: 85%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+}
+
+.passdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+input {
+    height: 37px;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid rgb(159, 177, 188);
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid rgb(159, 177, 188);
+    background-color: rgb(46, 82, 102);
+    color: white;
+    cursor: pointer;
+    font-size: large;
+}   
+
+button:hover {
+    background-color: rgb(110, 136, 152);
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(46, 82, 102);
+}
+
+a:hover {
+    color: rgb(110, 136, 152);
+}
