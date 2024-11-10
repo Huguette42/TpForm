@@ -20,7 +20,7 @@
         <div class="modes">
             <a href="logout">Deconnexion</a>
             <span>{{auth()->id()}}</span>
-            
+
         </div>
         <h1>Création du contrat</h1><br>
         <div id="stepper" class="stepper">
@@ -101,7 +101,7 @@
 
         </div>
         <div class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-arrow m-2" type="button" onclick="prevstep()">Précédent</button>
+            <button id="buttonprev" class="btn btn-arrow m-2" type="button" onclick="prevstep()">Précédent</button>
             <button id="buttonsuivant" class="btn btn-arrow m-2" type="button" onclick="nextstep()">Suivant</button>
             <input id="buttonsubmit" class="btn btn-success d-none" type="submit" value="Valider">
         </div>

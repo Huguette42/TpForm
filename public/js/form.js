@@ -1,35 +1,39 @@
 step = 1
-
+steppermainLeft = 0
 
 
 function nextstep() {
     if (step < 6) {
-        document.getElementById("step" + step).classList.add("d-none");
-        document.getElementById("step" + (step + 1)).classList.remove("d-none");
+        let suivbtn = document.getElementById("buttonsuivant")
+        suivbtn.disabled = true;
 
         let stepper1 = document.getElementById("stepper" + step)
-        let stepper2 = document.getElementById("stepper" + (step + 1))
+
+        let mainstepper = document.getElementById("mainstepper")
 
         let stepsep1 = document.getElementById("stepsep" + step);
 
-        stepper1.children[0].classList.remove("step-circle-active2");
-        stepper1.classList.remove("step-circle-active");
+        steppermainLeft = steppermainLeft+145
+
+        mainstepper.style.left = steppermainLeft + "px";
+
+        stepper1.classList.remove("step-circle-inactive");
         stepper1.classList.add("step-circle-done");
 
-        stepper2.classList.remove("step-circle-inactive");
-        stepper2.classList.add("step-circle-active");
-        stepper2.children[0].classList.add("step-circle-active2");
+        document.getElementById('step'+step).classList.add('d-none');
+        document.getElementById('step'+(step+1)).classList.remove('d-none');
 
-        stepsep1.classList.add("step-sep-done");
-        stepsep1.classList.remove("step-sep-inactive");
+        stepsep1.firstChild.classList.add("w-100");
 
         if (step === 5) {
-            let suivbtn = document.getElementById("buttonsuivant")
             let validbtn = document.getElementById("buttonsubmit")
 
             suivbtn.classList.add("d-none")
             validbtn.classList.remove("d-none")
         }
+        setTimeout(() => {
+            suivbtn.disabled = false;
+          }, 800);
         step++;
     }
 
@@ -37,24 +41,28 @@ function nextstep() {
 
 function prevstep() {
     if (step > 1) {
-        document.getElementById("step" + step).classList.add("d-none");
-        document.getElementById("step" + (step - 1)).classList.remove("d-none");
+        let prevbtn = document.getElementById("buttonprev")
+        prevbtn.disabled = true;
 
         let stepper1 = document.getElementById("stepper" + step)
-        let stepper2 = document.getElementById("stepper" + (step - 1))
+
+        let mainstepper = document.getElementById("mainstepper")
 
         let stepsep1 = document.getElementById("stepsep" + (step - 1));
 
-        stepper1.children[0].classList.remove("step-circle-active2");
+        steppermainLeft = steppermainLeft-145
+
+        mainstepper.style.left = steppermainLeft + "px";
+
+        // Mis a jour du stepper Actuel
         stepper1.classList.remove("step-circle-active");
         stepper1.classList.add("step-circle-inactive");
 
-        stepper2.classList.remove("step-circle-done");
-        stepper2.classList.add("step-circle-active");
-        stepper2.children[0].classList.add("step-circle-active2");
+        // Mis a jour du separateur precedent
+        stepsep1.firstChild.classList.remove("w-100");
 
-        stepsep1.classList.add("step-sep-inactive");
-        stepsep1.classList.remove("step-sep-done");
+        document.getElementById('step'+step).classList.add('d-none');
+        document.getElementById('step'+(step-1)).classList.remove('d-none');
 
         if (step === 6) {
             let suivbtn = document.getElementById("buttonsuivant")
@@ -63,7 +71,9 @@ function prevstep() {
             suivbtn.classList.remove("d-none")
             validbtn.classList.add("d-none")
         }
-
+        setTimeout(() => {
+            prevbtn.disabled = false;
+          }, 800);
         step--;
     }
 }
@@ -145,10 +155,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     stepper.innerHTML = `
             <div class="step">
-                <div class="step-circle-large step-circle-active centered" id="stepper1">
-                    <div class="step-circle-small step-circle-active2">
-                    </div>
-                    <div class="step-circle-small position-relative step-circle-active2">
+                <div class="step-circle-large centered" id="stepper1">
+                    <div id='mainstepper' class="step-circle-large step-circle-active position-relative centered" id="stepper1">
+                        <div class="step-circle-small step-circle-active2">
+                        </div>
                     </div>
                 </div>
                 <span class="step-title">${elements[0]}</span>
@@ -157,9 +167,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (let i = 1; i < elements.length; i++) {
         stepper.innerHTML += `
-                        <div id="stepsep${i}" class="step-sep step-sep-inactive"></div>
+                        <div id="stepsep${i}" class="step-sep step-sep-inactive"><div class="w-0 h-100 step-sep-done"></div></div>
                         <div class="step">
-                                <div class="step-circle-large step-circle-inactive centered" id="stepper${i + 1}"><div class="step-circle-small"></div></div>
+                                <div class="step-circle-large step-circle-inactive centered" id="stepper${i + 1}"></div>
                                 <span class="step-title">${elements[i]}</span>
                         </div>
                 `;
