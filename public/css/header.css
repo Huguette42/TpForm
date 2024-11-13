@@ -1,0 +1,111 @@
+/*
+Palette :
+https://coolors.co/ccd5ae-e9edc9-fefae0-faedcd-d4a373
+*/
+
+:root {
+    --body-bg-color: #ffffff; /* Tea green */
+    --vert-color: #CCD5AE;   /* Tea green */
+    --beige-color: #CCD5AE; /* Beige */
+    --corn-color: #FEFAE0;    /* Cornsik */
+    --papaya-color: #FAEDCD; /* Papaya whip */
+    --buff-color: #D4A373;      /* Buff */
+    --buff-color-light: #e1b287;    /* Buff Light */
+    --done-color: #28a745;      /* Vert réussite pour mode clair */
+    --text-color: black;
+}
+
+.dark-theme {
+        --body-bg-color: #1A1A1A; /* Noir pour mode sombre */
+        --vert-color: #4A5D23;   /* Vert foncé pour mode sombre */
+        --beige-color: #8A795D; /* Beige foncé pour mode sombre */
+        --corn-color: #3E3A26;    /* Cornsilk foncé pour mode sombre */
+        --papaya-color: #5A4A32; /* Papaya whip foncé pour mode sombre */
+        --buff-color: #705438;      /* Buff foncé pour mode sombre */
+        --buff-color-light: #8A795D;     /* Buff light foncé pour mode sombre */
+        --done-color: #1e7e34;      /* Vert réussite foncé pour mode sombre */
+        --text-color: white;
+}
+
+body {
+    background-color: var(--body-bg-color);
+    color: var(--text-color);
+}
+
+
+.header {
+    height: 100px;
+    margin-bottom: 30px;
+    padding-right: 20px;
+    color: var(--buff-color);
+    background-color: var(--body-bg-color);
+    position: relative;
+}
+
+.header a {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--buff-color);
+}
+
+
+#userimg {
+    height: 50px;
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+#chevronimg {
+    height: 20px;
+    transform: rotate(-90deg);
+    transition: 0.6s;
+}
+
+
+#dropdownmenu {
+    background-color: var(--buff-color);
+    padding: 0 15px;
+    border-radius: 0 0 10px 10px;
+    width: 200px;
+    transition: 0.6s top;
+    top: -80px;
+    right: 50px;
+    z-index: 0;
+
+}
+
+
+.dropdownitem  {
+    cursor: pointer;
+    color: black;
+    background-color: var(--buff-color-light);
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+#dropdownimg {
+    height: 20px;
+    margin-right: 10px;
+}
+
+.mode-img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.signature {
+    height: 100px;
+width: 180px;
+border: solid 1px #000;
+}
+

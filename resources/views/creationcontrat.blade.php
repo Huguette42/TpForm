@@ -7,21 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href = {{ asset("bootstrap/css/bootstrap.css") }} rel="stylesheet" />
     <link rel="stylesheet"  href="{{ asset('/css/form.css')}}">
+    <link rel="stylesheet"  href="{{ asset('/css/header.css')}}">
     <script src="{{ asset('/js/form.js') }}"></script>
-    <title>Document</title>
+    <link rel='icon' href="{{ asset('img/icon.png') }}" type='image/x-icon' />
+    <title>Create Form</title>
 </head>
 
 <body class="d-flex flex-column">
     @include('header')
     <form id="mainform" class="d-flex justify-content-center align-items-center flex-column" action="{{ route('contracts.store') }}" method="POST">
         @csrf
-        <div class="modes">
-            <a href="logout">Deconnexion</a>
-            <span>{{auth()->id()}}</span>
-
-        </div>
         <h1>Création du contrat</h1><br>
         <div id="stepper" class="stepper">
 

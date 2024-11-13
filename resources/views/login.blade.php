@@ -14,8 +14,8 @@
         <br>
         <form method="post" action="{{ route('login')}}" style="display: flex;flex-direction: column;">
             @csrf
-            <label for="username">Nom d'utilisateur</label>
-            <input required name="username"/>
+            <label for="email">Email</label>
+            <input required name="email"/>
             <label for="password">Mot de passe</label>
             <div class="passdiv">
                 <input required class="inputpass" type="password" name="password"/>

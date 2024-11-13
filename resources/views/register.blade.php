@@ -14,8 +14,15 @@
         <br>
         <form method="POST" action="{{ route('register') }}" style="display: flex;flex-direction: column;">
             @csrf
-            <label for="username">Nom d'utilisateur</label>
-            <input name="username"/>
+            <label for="email">Email</label>
+            <input name="email"/>
+            @error('email')
+                    <p style="color: red;">{{ $message }}</p>
+            @enderror
+            <label for="firstname">Prénom</label>
+            <input name="firstname"/>
+            <label for="lastname">Nom</label>
+            <input name="lastname"/>
 
             <label for="password">Mot de passe</label>
             <div class="passdiv">
@@ -27,6 +34,12 @@
                 <input class="inputpass" type="password" name="password2"/>
                 <img class="passimg2" src="img/eyeo.svg" style="height: 32px;margin-right: 10px" onclick="togglePasswordVisibilityRegister(2)"/>
             </div>
+            @error('password')
+                    <p style="color: red;">{{ $message }}</p>
+            @enderror
+            @error('password2')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
             <br>
             <button type="submit">S'inscrire</button>
             <br>

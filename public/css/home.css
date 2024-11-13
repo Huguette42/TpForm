@@ -1,0 +1,14 @@
+.btn-theme {
+    background-color: var(--buff-color);
+}
+
+.btn-theme:hover {
+    background-color: var(--corn-color);
+}
+
+.contrat {
+    background-color: var(--vert-color);
+    width: 70%;
+    border-radius: 25px;
+
+}

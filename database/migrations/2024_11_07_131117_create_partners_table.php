@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('partner_name');
             $table->string('partner_firstname');
             $table->string('partner_contribution');
+            $table->string('partner_signature');
             $table->foreignId('contract_id')->constrained('contracts')->onDelete('cascade');
             $table->timestamps();
         });

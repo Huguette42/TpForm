@@ -13,6 +13,7 @@ class Partner extends Model
         'partner_name',
         'partner_firstname',
         'partner_contribution',
+        'partner_signature',
     ];
 
     public function contract()

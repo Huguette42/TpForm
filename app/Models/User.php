@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use HasFactory;
-    protected $fillable = ['username', 'password'];
+    protected $fillable = ['email','firstname','lastname', 'password'];
     public function contracts()
     {
         return $this->hasMany(Contract::class);

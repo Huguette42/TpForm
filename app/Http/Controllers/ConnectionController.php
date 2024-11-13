@@ -12,14 +12,14 @@ class ConnectionController extends Controller
     public function login()
     {
         request()->validate([
-            'username' => 'required|min:3|max:12',
+            'email' => 'required',
             'password' => [Password::min(8)
             ->letters()
             ->mixedCase()
             ->numbers()
             ->symbols(), 'required']
         ]);
-        $user = User::where('username', request()->get('username'))->first();
+        $user = User::where('email', request()->get('email'))->first();
         if ($user) {
             if (password_verify(request()->get('password'), $user->password)) {
                 auth()->login($user);
@@ -30,19 +30,25 @@ class ConnectionController extends Controller
 
     public function register(){
         $validate = request()->validate([
-            'username' => 'required|min:3|max:12',
-            'password' => [Password::min(8)
-            ->letters()
+            'email' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'password' => [Password::min(8)->letters()
             ->mixedCase()
             ->numbers()
             ->symbols(), 'required'],
             'password2' => 'required|same:password'
         ]);
+        dump($validate);
 
-        $user = User::create([
-            'username' => $validate['username'],
+        $user = [
+            'email' => $validate['email'],
+            'firstname' => $validate['firstname'],
+            'lastname' => $validate['lastname'],
             'password' => Hash::make($validate['password']),
-        ]);
+        ];
+
+        User::create($user);
 
         return redirect('/login')->with('success', 'Register success');
     }
@@ -51,5 +57,21 @@ class ConnectionController extends Controller
     {
         auth()->logout();
         return redirect('/login')->with('success', 'Logout success');
+    }
+
+    public function edituser() {
+        $user = auth()->user();
+
+        return view('edituser', compact('user'));
+    }
+
+    public function updateuser() {
+
+
+        return redirect('/')->with('success', 'User updated');
+    }
+
+    public function updatepassword() {
+        //a faire
     }
 }

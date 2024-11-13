@@ -1,0 +1,21 @@
+
+.maindiv {
+    background-color: var(--beige-color)!important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    width: 700px;
+    padding: 50px;
+    position: relative;
+}
+
+.btn-theme {
+    background-color: var(--buff-color);
+}
+
+.btn-theme:hover {
+    background-color: var(--corn-color);
+}
+
+input {
+    width: 300px;
+}
