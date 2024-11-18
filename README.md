@@ -62,7 +62,7 @@ Une application Laravel complète pour la gestion des contrats de partenariat, a
    ```bash
    composer install
    ```
-   
+
 5. Configurez le fichier `.env` :
    - Base de données : `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
    - SMTP pour l'envoi des e-mails.
@@ -81,7 +81,10 @@ Une application Laravel complète pour la gestion des contrats de partenariat, a
 
 ## 📸 Aperçu
 
-> **Ajoutez ici des captures d'écran ou des GIFs** de votre application pour illustrer l'interface et les fonctionnalités.
+<p align="center">
+  <img src="public/img/pres1.png" alt="Présentation 1" width="45%" style="margin-right: 5px;">
+  <img src="public/img/pres2.png" alt="Présentation 2" width="45%" style="margin-left: 5px;">
+</p>
 
 ---
 
