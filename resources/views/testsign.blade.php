@@ -13,7 +13,7 @@
     <canvas id="signature" width=400 height=200></canvas>
     <button onclick="clearSignature()">Clear</button>
     <button onclick="saveSignature()">Save</button>
-    <form id="signform" action="{{ route('signature.store', ['contract_id' => 1, 'partner_id' => 1]) }}" method="POST">
+    <form id="signform" action="{{ route('signature.store', ['contract_id' => 2, 'partner_id' => 1]) }}" method="POST">
         @csrf
         @method('PUT')
         <input type="hidden" name="signature" id="signatureInput">

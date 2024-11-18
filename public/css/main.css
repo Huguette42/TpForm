@@ -109,3 +109,27 @@ width: 180px;
 border: solid 1px #000;
 }
 
+.footerdiv {
+    background-color: var(--buff-color);
+    color: var(--text-color);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 120px;
+}
+
+.footerdiv img {
+    height: 60px;
+    cursor: pointer;
+}
+
+.footeritem {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

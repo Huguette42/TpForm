@@ -1,15 +1,6 @@
 
 
 
-
-body {
-    margin: none;
-    padding: 0 0 40px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #mainform {
     background-color: var(--beige-color)!important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

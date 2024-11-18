@@ -5,11 +5,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgb(46, 82, 102);
+    background-color: var(--body-bg-color);
+    color: var(--text-color);
 }
 
 .loginborder {
-    background-color: rgb(159, 177, 188);
+    background-color: var(--vert-color);
     padding: 50px;
     border-radius: 25px;
     width: 500px;
@@ -31,7 +32,7 @@
 .passdiv {
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
 }
 
 input {
@@ -40,31 +41,34 @@ input {
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
-    border: 1px solid rgb(159, 177, 188);
+    border: 1px solid var(--vert-color);
 }
 
 button {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid rgb(159, 177, 188);
-    background-color: rgb(46, 82, 102);
-    color: white;
-    cursor: pointer;
-    font-size: large;
-}   
+    background-color: var(--buff-color) !important;
+}
 
 button:hover {
-    background-color: rgb(110, 136, 152);
-    color: black;
+    background-color: var(--buff-color-light) !important;
+    color: var(--text-color) !important;
 }
 
 a {
-    text-decoration: none;
-    color: rgb(46, 82, 102);
+    text-decoration: none !important;
+    color: var(--text-color) !important;
 }
 
 a:hover {
     color: rgb(110, 136, 152);
 }
+
+.passimg {
+    cursor: pointer;
+}
+
+.postion-custom {
+    top: 5%;
+    right: 5%;
+ }
+

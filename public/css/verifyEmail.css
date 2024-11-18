@@ -1,0 +1,18 @@
+.block {
+    background-color: var(--vert-color);
+    width: 60%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-color {
+    background-color: var(--buff-color);
+    color: var(--text-color);
+}
+
+.btn:hover {
+    background-color: var(--buff-color-light);
+}

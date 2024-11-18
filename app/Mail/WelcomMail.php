@@ -23,11 +23,13 @@ class WelcomMail extends Mailable
 
     /**
      * Get the message envelope.
+     * 
      */
     public function envelope(): Envelope
     {
         return new Envelope(
             subject: 'Welcom Mail',
+
         );
     }
 
@@ -38,6 +40,7 @@ class WelcomMail extends Mailable
     {
         return new Content(
             view: 'emails.test',
+
         );
     }
 

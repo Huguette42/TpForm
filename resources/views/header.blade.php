@@ -5,7 +5,7 @@
     <div class="dropdownitem">
         <img id="dropdownimg" src='{{asset('img/notification.png')}}'/>Notification
     </div>
-    <a href='logout' class="dropdownitem">
+    <a href='{{route('logout')}}' class="dropdownitem">
         <img id="dropdownimg" src='{{asset('img/logout.png')}}'/>Deconnexion
     </a>
 </div>

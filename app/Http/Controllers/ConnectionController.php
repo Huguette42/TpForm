@@ -3,54 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Auth;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Auth\Events\Registered;
 
 class ConnectionController extends Controller
 {
     public function login()
     {
         request()->validate([
-            'email' => 'required',
-            'password' => [Password::min(8)
-            ->letters()
-            ->mixedCase()
-            ->numbers()
-            ->symbols(), 'required']
+            'Email' => 'required',
+            'Mot_de_passe' => 'required'
         ]);
-        $user = User::where('email', request()->get('email'))->first();
+        $user = User::where('email', request()->get('Email'))->first();
         if ($user) {
-            if (password_verify(request()->get('password'), $user->password)) {
+            if (password_verify(request()->get('Mot_de_passe'), $user->password)) {
                 auth()->login($user);
                 return redirect('/')->with('success', 'Login success');
             }
         }
+        return redirect('/login')->with('error', 'Email ou mot de passe incorrect');
     }
 
     public function register(){
         $validate = request()->validate([
-            'email' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'password' => [Password::min(8)->letters()
+            'Email' => 'required',
+            'Prénom' => 'required',
+            'Nom' => 'required',
+            'Mot_de_passe' => [Password::min(8)->letters()
             ->mixedCase()
             ->numbers()
             ->symbols(), 'required'],
-            'password2' => 'required|same:password'
+            'Mot_de_passe_confirmation' => 'required|same:Mot_de_passe'
         ]);
-        dump($validate);
-
+        $user_find = User::where('email', $validate['Email'])->first();
+        if ($user_find) {
+            return redirect('/register')->with('error', 'Email deja utilisée');
+        }
         $user = [
-            'email' => $validate['email'],
-            'firstname' => $validate['firstname'],
-            'lastname' => $validate['lastname'],
-            'password' => Hash::make($validate['password']),
+            'email' => $validate['Email'],
+            'firstname' => $validate['Prénom'],
+            'lastname' => $validate['Nom'],
+            'password' => Hash::make($validate['Mot_de_passe']),
         ];
 
-        User::create($user);
+        $new_user = User::create($user);
 
-        return redirect('/login')->with('success', 'Register success');
+        Auth::login($new_user);
+
+        event(new Registered($new_user));
+
+        return redirect('/')->with('success', 'Register success');
     }
 
     public function logout()
@@ -62,7 +67,7 @@ class ConnectionController extends Controller
     public function edituser() {
         $user = auth()->user();
 
-        return view('edituser', compact('user'));
+        return view('auth.edituser', compact('user'));
     }
 
     public function updateuser() {

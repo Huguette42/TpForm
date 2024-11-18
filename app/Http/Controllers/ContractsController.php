@@ -6,6 +6,7 @@ use App\Models\Contract;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Storage;
 
 class ContractsController extends Controller
 {
@@ -92,7 +93,20 @@ class ContractsController extends Controller
 
         $nbpartner = $contract->partners->count();
 
-        return view('contract/show', ['contract' => $contract, 'dateajd' => $dateajd, 'dateDebutContrat' => $dateDebutContrat, 'nbpartner' => $nbpartner]);
+        return view('contract.show', ['contract' => $contract, 'dateajd' => $dateajd, 'dateDebutContrat' => $dateDebutContrat, 'nbpartner' => $nbpartner]);
+    }
+
+    public function destroy($id)
+    {
+        $contract = Contract::find($id);
+
+        foreach ($contract->partners as $partner) {
+            Storage::disk('public')->delete($partner->partner_signature); // Supprimer la signature du partenaire
+        }
+
+        $contract->delete();
+
+        return redirect('/')->with('success', 'Contract deleted');
     }
 
     public function downloadPDF($id)

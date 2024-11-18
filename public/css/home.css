@@ -1,5 +1,6 @@
 .btn-theme {
     background-color: var(--buff-color);
+    color: var(--text-color) !important;
 }
 
 .btn-theme:hover {
@@ -10,5 +11,4 @@
     background-color: var(--vert-color);
     width: 70%;
     border-radius: 25px;
-
 }

@@ -1,22 +1,11 @@
-<?php
-// Tableau des mois en français
+@extends('layouts.base')
 
+@section('title')
+Contrat
+@endsection
 
-?>
+@section('content')
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Contrat de Partenariat Commercial</title>
-</head>
-<body>
-@include('header')
 <div class="px-5 py-3" id="contrat">
 <h1>Contrat de Partenariat Commercial</h1>
 
@@ -126,5 +115,4 @@
 
 <p>Par moi : <span class="strong">{{$contract->contract_avocate_name}}</span></p>
 </div>
-</body>
-</html>
+@endsection
