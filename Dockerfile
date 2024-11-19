@@ -29,5 +29,4 @@ RUN cp -n .env.example .env
 # https://laravel.com/docs/10.x/deployment#optimizing-configuration-loading
 RUN composer install
 
-
 RUN chown -R application:application .
