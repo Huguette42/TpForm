@@ -1,18 +1,46 @@
-# Utiliser l'image PHP + Nginx
-FROM webdevops/php-nginx:8.3-alpine
+# Use the official PHP image as a base image
+FROM php:8.1-fpm
 
-# Définir le répertoire de travail
-WORKDIR /app
+# Set working directory
+WORKDIR /var/www
 
-# Copier les fichiers de l'application dans le conteneur
-COPY . .
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl \
+    libzip-dev \
+    libpq-dev \
+    libonig-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
 
-# Installer les dépendances PHP avec Composer (en incluant les dépendances de dev)
-RUN composer install --optimize-autoloader
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql mbstring zip exif pcntl
 
-# Configurer les permissions pour Laravel
-RUN chown -R application:application /app \
-    && chmod -R 775 /app/storage /app/bootstrap/cache
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Exposer le port Nginx
-EXPOSE 80
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy the existing application directory contents to the working directory
+COPY . /var/www
+
+# Installer les dépendances Laravel
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
