@@ -50,32 +50,36 @@ Une application Laravel complète pour la gestion des contrats de partenariat, a
 - Node.js (pour la compilation des assets frontend).
 
 ### Étapes
-1. Clonez le dépôt :
+
+1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/ton-utilisateur/ton-projet.git
-   cd ton-projet
+   git clone https://github.com/votre-repository/nom-du-projet.git
+   cd nom-du-projet
    ```
 
-2. Déplacez le projet dans le répertoire `htdocs` de XAMPP.
+2. **Démarrer les conteneurs Docker**
+   Assurez-vous que Docker et Docker Compose sont installés sur votre machine.
 
-3. Installez les dépendances backend :
    ```bash
-   composer install
+   sudo docker-compose up -d
    ```
 
-5. Configurez le fichier `.env` :
-   - Base de données : `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
-   - SMTP pour l'envoi des e-mails.
+3. **Accéder au conteneur de l'application**
+   Une fois les conteneurs démarrés, connectez-vous au conteneur de l'application Laravel :
 
-6. Démarrez Apache et MySQL depuis le panneau de contrôle XAMPP.
-
-7. Migratez et seed les données :
    ```bash
-   php artisan migrate --seed
+   sudo docker-compose exec app bash
    ```
 
-8. Accédez à l'application :
-   - Ouvrez [http://localhost/ton-projet/public](http://localhost/ton-projet/public) dans votre navigateur.
+4. **Exécuter les migrations**
+   À l'intérieur du conteneur, lancez les migrations pour configurer la base de données :
+
+   ```bash
+   php artisan migrate --force
+   ```
+
+5. **Accéder à l'application**
+   Votre application est maintenant accessible via [http://localhost:8080](http://localhost:8080).
 
 ---
 
