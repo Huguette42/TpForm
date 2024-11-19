@@ -1,9 +1,9 @@
 function togglePasswordVisibilityRegister(number) {
     if (number === 1){
-        var password = document.getElementsByName('password')[0];
+        var password = document.getElementsByName('Mot_de_passe')[0];
         var img = document.querySelector('.passimg');
     } else {
-        var password = document.getElementsByName('password2')[0];
+        var password = document.getElementsByName('Mot_de_passe_confirmation')[0];
         var img = document.querySelector('.passimg2');
     }
     if (password.type === 'password') {
@@ -16,7 +16,7 @@ function togglePasswordVisibilityRegister(number) {
 }
 
 function togglePasswordVisibilityLogin() {
-    var password = document.getElementsByName('password')[0];
+    var password = document.getElementsByName('Mot_de_passe')[0];
     var img = document.querySelector('.passimg');
 if (password.type === 'password') {
     password.type = 'text';
