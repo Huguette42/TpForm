@@ -53,8 +53,8 @@ Une application Laravel complète pour la gestion des contrats de partenariat, a
 
 1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/votre-repository/nom-du-projet.git
-   cd nom-du-projet
+   git clone [https://github.com/votre-repository/nom-du-projet.git](https://github.com/Huguette42/TpForm.git)
+   cd TpForm
    ```
 
 2. **Démarrer les conteneurs Docker**
