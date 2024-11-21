@@ -82,7 +82,46 @@ function addpartie() {
     const number = document.getElementById('numberparties').value
     document.getElementById('numberparties').value = parseInt(number) + 1;
     document.getElementById('numberparties-span').innerHTML = parseInt(number) + 1;
-    refreshpartenaire();
+    const step2Div = document.getElementById('partenaire');
+    const newdiv = document.createElement('div');
+    newdiv.id = 'partner' + (parseInt(number) + 1);
+    newdiv.className = 'm-3';
+    newdiv.innerHTML = `
+
+                                        <h2>Partenaire ${parseInt(number)+1}</h2>
+                                        <div class='inputdiv'>
+                                                <label class='form-label' for='nom${parseInt(number)+1}'>Nom</label>
+                                                <input class='form-control' name='nom${parseInt(number)+1}' type='text' placeholder='Nom'>
+                                        </div><br>
+                                        <div>
+                                                <label class='form-label' for='prenom${parseInt(number)+1}'>Prénom</label>
+                                                <input class='form-control' name='prenom${parseInt(number)+1}' type='text' placeholder='Prénom'>
+                                        </div><br>
+                                        <div>
+                                                <label class='form-label' for='email${parseInt(number)+1}'>Email</label>
+                                                <input class='form-control' name='email${parseInt(number)+1}' type='text' placeholder='Email'>
+                                        </div>
+
+                        `;
+    step2Div.appendChild(newdiv);
+    step5 = document.getElementById('minsignature');
+    step5.innerHTML = '';
+    for (let i = 1; i <= parseInt(number)+1; i++) {
+        step5.innerHTML += `
+                        <option value="${i}">${i} partenaire minimum</option>
+                        `;
+    }
+
+    const step3Div = document.getElementById('step3');
+    const newdiv2 = document.createElement('div');
+    newdiv2.id = 'partnercontrib' + parseInt(number) + 1;
+    newdiv2.className = 'm-3 inputdiv';
+    newdiv2.innerHTML = `
+                                        <h2>Contribution ${parseInt(number)+1}</h2>
+                                        <textarea class="form-control" name='contribution${parseInt(number)+1}' placeholder='Contribution'></textarea><br>
+                               `;
+    step3Div.appendChild(newdiv2);
+
 }
 
 function removepartie() {
@@ -90,58 +129,38 @@ function removepartie() {
     if (number > 1) {
         document.getElementById('numberparties').value = parseInt(number) - 1;
         document.getElementById('numberparties-span').innerHTML = parseInt(number) - 1;
-        refreshpartenaire();
+        document.getElementById('partner' + number).remove();
+        document.getElementById('partnercontrib' + number).remove();
+
     }
 }
 
 
-function refreshpartenaire() {
-    const number = document.getElementById('numberparties').value
-    const step2Div = document.getElementById('partenaire');
-    step2Div.innerHTML = '';
 
-    for (let i = 1; i <= number; i++) {
-        step2Div.innerHTML += `
-                                <div class="m-5">
-                                        <h2>Partenaire ${i}</h2>
-                                        <div>
-                                                <label class='form-label' for='nom${i}'>Nom</label>
-                                                <input class='form-control' name='nom${i}' type='text' placeholder='Nom'>
-                                        </div><br>
-                                        <div>
-                                                <label class='form-label' for='prenom${i}'>Prénom</label>
-                                                <input class='form-control' name='prenom${i}' type='text' placeholder='Prénom'>
-                                        </div>
-                                </div>
-                        `;
+function included() {
+    const partner = document.getElementById('partnerinclude')
+    const partner1 = document.getElementById('partner1')
+    const contribtitle1 = document.getElementById('contribtitle1')
+    if (document.getElementById('include').checked) {
+        partner.classList.remove('d-none')
+        partner1.classList.add('d-none')
+        contribtitle1.innerHTML = 'Ma contribution'
+
+    } else {
+        partner.classList.add('d-none')
+        partner1.classList.remove('d-none')
+        contribtitle1.innerHTML = 'Contribution 1'
     }
 
-    step3 = document.getElementById('step3');
-    step3.innerHTML = '';
 
-    for (let i = 1; i <= number; i++) {
-        step3.innerHTML += `
-                                <div class="m-5">
-                                        <h2>Partenaire ${i}</h2>
-                                        <textarea class="form-control" name='contribution${i}' placeholder='Contribution'></textarea><br>
-                                </div>
-                        `;
-    }
 
-    step5 = document.getElementById('minsignature');
-    step5.innerHTML = '';
 
-    for (let i = 1; i <= number; i++) {
-        step5.innerHTML += `
-                        <option value="${i}">${i} partenaire minimum</option>
-                        `;
-    }
+
 }
 
 
 //Quand le dom est chargé
 document.addEventListener('DOMContentLoaded', function () {
-    refreshpartenaire();
     const elements = [
         "Noms",
         "Activités",
@@ -176,3 +195,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+
+const form = document.getElementById('mainform');
+form.addEventListener('submit', () => {
+    const disabledInputs = form.querySelectorAll(':disabled');
+    disabledInputs.forEach(input => input.disabled = false);
+});
+
+

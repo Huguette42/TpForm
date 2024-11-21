@@ -1,4 +1,4 @@
-<div class="footerspace"></div>
+
 <div class="footerdiv">
 
     <div class="footeritem"><img src="{{asset('img/mail.png')}}">hugojeanselme@gmail.com</div>

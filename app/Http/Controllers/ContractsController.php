@@ -40,20 +40,53 @@ class ContractsController extends Controller
         ];
 
         $validate_partner = [];
+        if (request()->get('include') === 'on') {
+            global $validate_partner;
+            $partner = request()->validate([
+            'nom99' => 'required',
+            'prenom99' => 'required',
+            'contribution1' => 'required',
+            'email99' => 'required',
+            ]);
 
-        for ($i = 0; $i < $partner_number; $i++) {
+            $validate_partner[0] = [
+                'partner_name' => $partner['nom99'],
+                'partner_firstname' => $partner['prenom99'],
+                'partner_contribution' => $partner['contribution1'],
+                'partner_email' => $partner['email99'],
+            ];
+        } else {
+            global $validate_partner;
+            $partner = request()->validate([
+            'nom1' => 'required',
+            'prenom1' => 'required',
+            'contribution1' => 'required',
+            'email1' => 'required',
+            ]);
+
+            $validate_partner[0] = [
+                'partner_name' => $partner['nom1'],
+                'partner_firstname' => $partner['prenom1'],
+                'partner_contribution' => $partner['contribution1'],
+                'partner_email' => $partner['email1'],
+            ];
+        }
+
+        for ($i = 1; $i < $partner_number; $i++) {
             global $validate_partner;
 
             $partner = request()->validate([
             'nom'.($i+1) => 'required',
             'prenom'.($i+1) => 'required',
             'contribution'.($i+1) => 'required',
+            'email'.($i+1) => 'required',
             ]);
 
             $validate_partner[$i] = [
                 'partner_name' => $partner['nom'.($i+1)],
                 'partner_firstname' => $partner['prenom'.($i+1)],
                 'partner_contribution' => $partner['contribution'.($i+1)],
+                'partner_email' => $partner['email'.($i+1)],
             ];
         }
 
@@ -112,10 +145,68 @@ class ContractsController extends Controller
     public function downloadPDF($id)
     {
         $contract = Contract::find($id);
+        $nbpartner = $contract->partners->count();
 
-        $pdf = Pdf::loadView('contract.pdf', array('contract' =>  $contract))
+        $pdf = Pdf::loadView('contract.pdf', array('contract' =>  $contract, 'nbpartner' => $nbpartner))
         ->setPaper('a4', 'portrait');
 
         return $pdf->download('Contract-'.$id.'.pdf');
+    }
+
+    public function edit($id)
+    {
+        $contract = Contract::find($id);
+
+        $nbpartner = $contract->partners->count();
+
+        return view('contract.edit', ['contract' => $contract, 'nbpartner' => $nbpartner]);
+    }
+
+    public function update($id)
+    {
+
+        $contract = Contract::find($id);
+
+        $validatedData = request()->validate([
+            'contract_date' => 'required',
+            'contract_name' => 'required',
+            'contract_nature' => 'required',
+            'contract_address' => 'required',
+
+            'contract_repartition' => 'required',
+            'contract_min_sign' => 'required',
+            'contract_clause_duration' => 'required',
+
+            'contract_state' => 'required',
+            'contract_location' => 'required',
+            'contract_avocate_name' => 'required',
+        ]);
+
+        $validate_partners = [];
+        $partner_number = $contract->partners->count();
+
+        for ($i = 0; $i < $partner_number; $i++) {
+            global $validate_partners;
+
+            $partner = request()->validate([
+            'partner_name_'.$i => 'required',
+            'partner_firstname_'.$i => 'required',
+            'partner_contribution_'.$i => 'required',
+            'partner_email_'.$i => 'required',
+            ]);
+            $validate_partners[$i] = [
+                'partner_name' => $partner['partner_name_'.$i],
+                'partner_firstname' => $partner['partner_firstname_'.$i],
+                'partner_contribution' => $partner['partner_contribution_'.$i],
+                'partner_email' => $partner['partner_email_'.$i],
+            ];
+        }
+
+        $contract->update($validatedData);
+
+        for ($i = 0; $i < $partner_number; $i++) {
+            $contract->partners[$i]->update($validate_partners[$i]);
+        }
+        return redirect('/')->with('success', 'Contract updated');
     }
 }

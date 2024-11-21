@@ -16,6 +16,15 @@
     background-color: var(--corn-color);
 }
 
-input {
-    width: 300px;
+
+.passdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.passimg {
+    cursor: pointer;
+    margin-left: 10px;
 }

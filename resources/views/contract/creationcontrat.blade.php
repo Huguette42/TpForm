@@ -2,7 +2,7 @@
 
 @section('header')
     <link rel="stylesheet"  href="{{ asset('/css/form.css')}}">
-    <script src="{{ asset('/js/form.js') }}"></script>
+
 @endsection
 
 @section('title')
@@ -10,7 +10,7 @@ Creer un contrat
 @endsection
 
 @section('content')
-    <div class="w-100 d-flex justify-content-center align-items-center py-4">
+    <div class="w-100 d-flex justify-content-center align-items-center py-4 testmain">
         <form id="mainform" class="d-flex justify-content-center align-items-center flex-column" action="{{ route('contracts.store') }}" method="POST">
             @csrf
             <h1>Création du contrat</h1><br>
@@ -23,18 +23,65 @@ Creer un contrat
                 <span>Nombre de parties</span>
                 <span id="numberparties-span">1</span>
                 <input id="numberparties" type="hidden" name="number" value="1">
+
                 <div>
                     <button class="btn btn-arrow" type="button" onclick="addpartie()">Ajouter une partie</button>
                     <button class="btn btn-arrow" type="button" onclick="removepartie()">Supprimer une partie</button>
                 </div>
-                <div id="partenaire" class="d-flex flex-wrap justify-content-center align-items-center flex-row">
+                <br>
+                <div class="d-flex justify-content-start align-items-center">
+                    <label class="form-check-label mx-3" for="include">S'inclure dans le contrat</label>
+                    <div class="form-check form-switch">
+                        <input name="include" class="form-check-input cursor-pointer contractcheckbox" type="checkbox" onclick="included()" id="include">
+                    </div>
+                </div>
+                <div id="partenaire" class="d-flex flex-wrap justify-content-center w-100 align-items-center flex-row">
 
+                    <div id='partner1' class="m-3">
+                        <h2>Partenaire 1</h2>
+                        <div class='inputdiv'>
+                                <label class='form-label' for='nom1'>Nom</label>
+                                <input class='form-control' name='nom1' type='text' placeholder='Nom'>
+                        </div><br>
+                        <div>
+                                <label class='form-label' for='prenom1'>Prénom</label>
+                                <input class='form-control' name='prenom1' type='text' placeholder='Prénom'>
+                        </div><br>
+                        <div>
+                                <label class='form-label' for='email1'>Email</label>
+                                <input class='form-control' name='email1' type='text' placeholder='Email'>
+                        </div>
+                </div>
+                    <div id="partnerinclude" class="m-3 d-none">
+                        <h2>Moi</h2>
+                        <div class='inputdiv'>
+                                <label class='form-label' for='nom99'>Nom</label>
+                                <input disabled class='form-control' name='nom99' type='text' value="{{auth()->user()->lastname}}" placeholder='Nom'>
+                        </div><br>
+                        <div>
+                                <label class='form-label' for='prenom99'>Prénom</label>
+                                <input disabled class='form-control' name='prenom99' type='text' value="{{auth()->user()->firstname}}" placeholder='Prénom'>
+                        </div><br>
+                        <div>
+                                <label class='form-label' for='email99'>Email</label>
+                                <input disabled class='form-control' name='email99' type='text' value="{{auth()->user()->email}}" placeholder='Email'>
+                        </div>
+                        @error('nom99')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        @error('prenom99')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        @error('email99')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
             </div>
             <br>
-            <div id="step2" class="d-none">
+            <div id="step2" class="d-none inputdiv">
                 <h2>Activités</h2>
-                <div>
+                <div >
                     <label class="form-label" for="nature">Nature du contrat</label>
                     <textarea class="form-control" type="text" name="nature"></textarea>
                 </div>
@@ -56,7 +103,10 @@ Creer un contrat
                 <br>
             </div>
             <div id="step3" class="d-none d-flex justify-content-center align-items-center flex-wrap">
-                <h2>Contributions</h2>
+                <div class="m-3 inputdiv">
+                    <h2 id="contribtitle1">Contribution 1</h2>
+                    <textarea class="form-control" name='contribution1' placeholder='Contribution'></textarea><br>
+                </div>
             </div>
             <div id="step4" class="d-none">
                 <h2>Modalités bancaire</h2>
@@ -97,4 +147,5 @@ Creer un contrat
             </div>
         </form>
     </div>
+    <script src="{{ asset('/js/form.js') }}"></script>
 @endsection

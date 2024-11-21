@@ -66,17 +66,48 @@ class ConnectionController extends Controller
 
     public function edituser() {
         $user = auth()->user();
-
         return view('auth.edituser', compact('user'));
     }
 
     public function updateuser() {
+        $validate = request()->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email'
+        ]);
 
+        $user = auth()->user();
+
+        if ($validate['email'] != $user->email) {
+            $user_find = User::where('email', $validate['email'])->first();
+            if ($user_find) {
+                return redirect('/editprofil')->with('error', 'Email deja utilisée');
+            }
+            $user->email_verified_at = null;
+        }
+
+
+        $user->firstname = $validate['firstname'];
+        $user->lastname = $validate['lastname'];
+        $user->email = $validate['email'];
+        $user->save();
 
         return redirect('/')->with('success', 'User updated');
     }
 
     public function updatepassword() {
-        //a faire
+        $validate = request()->validate([
+            'Mot_de_passe' => [Password::min(8)->letters()
+            ->mixedCase()
+            ->numbers()
+            ->symbols(), 'required'],
+            'Mot_de_passe_confirmation' => 'required|same:Mot_de_passe'
+        ]);
+
+        $user = auth()->user();
+        $user->password = Hash::make($validate['Mot_de_passe']);
+        $user->save();
+
+        return redirect('/')->with('success', 'Password updated');
     }
 }

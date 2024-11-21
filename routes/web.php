@@ -45,15 +45,19 @@ Route::get('/contract', function () {
 
 Route::get('/editprofil', [ConnectionController::class, 'edituser'])->middleware('auth')->name('user.edit');
 
-Route::post('/editprofil', [ConnectionController::class, 'updateuser'])->middleware('auth')->name('user.update');
+Route::put('/editprofil', [ConnectionController::class, 'updateuser'])->middleware('auth')->name('user.update');
 
-Route::post('/updatepassword', [ConnectionController::class, 'updatepassword'])->middleware('auth')->name('user.updatepassword');
+Route::put('/updatepassword', [ConnectionController::class, 'updatepassword'])->middleware('auth')->name('user.updatepassword');
 
 Route::get('/contract/{id}', [ContractsController::class, 'show'])->middleware('auth')->name('contracts.show');
 
 Route::get('/contract/{id}/download', [ContractsController::class, 'downloadPDF'])->middleware('auth')->name('contracts.download');
 
 Route::delete('/contract/{id}', [ContractsController::class, 'destroy'])->middleware('auth')->name('contracts.destroy');
+
+Route::get('/contract/{id}/edit', [ContractsController::class, 'edit'])->middleware('auth')->name('contracts.edit');
+
+Route::put('/contract/{id}', [ContractsController::class, 'update'])->middleware('auth')->name('contracts.update');
 
 Route::put('/signature/{contract_id}/{partner_id}', [SignatureController::class, 'store'])->middleware('auth')->name('signature.store');
 

@@ -1,0 +1,6 @@
+.maindiv {
+    background-color: var(--vert-color);
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 900px;
+}
