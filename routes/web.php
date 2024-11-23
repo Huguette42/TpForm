@@ -59,7 +59,11 @@ Route::get('/contract/{id}/edit', [ContractsController::class, 'edit'])->middlew
 
 Route::put('/contract/{id}', [ContractsController::class, 'update'])->middleware('auth')->name('contracts.update');
 
-Route::put('/signature/{contract_id}/{partner_id}', [SignatureController::class, 'store'])->middleware('auth')->name('signature.store');
+Route::get('/signature/show/{partner_id}', [SignatureController::class, 'show'])->middleware('signed')->name('signature.show');
+
+Route::get('/signature/{contract_id}/{partner_id}', [SignatureController::class, 'index'])->middleware('signed')->name('signature.index');
+
+Route::put('/signature/{contract_id}/{partner_id}', [SignatureController::class, 'store'])->middleware(['auth','signed'])->name('signature.store');
 
 Route::get('test', function () {
     return view('testsign');

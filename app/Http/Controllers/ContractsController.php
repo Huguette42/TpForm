@@ -7,6 +7,7 @@ use App\Models\Partner;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Storage;
+use URL;
 
 class ContractsController extends Controller
 {
@@ -40,37 +41,18 @@ class ContractsController extends Controller
         ];
 
         $validate_partner = [];
-        if (request()->get('include') === 'on') {
-            global $validate_partner;
-            $partner = request()->validate([
-            'nom99' => 'required',
-            'prenom99' => 'required',
-            'contribution1' => 'required',
-            'email99' => 'required',
-            ]);
 
-            $validate_partner[0] = [
-                'partner_name' => $partner['nom99'],
-                'partner_firstname' => $partner['prenom99'],
-                'partner_contribution' => $partner['contribution1'],
-                'partner_email' => $partner['email99'],
-            ];
-        } else {
-            global $validate_partner;
-            $partner = request()->validate([
-            'nom1' => 'required',
-            'prenom1' => 'required',
-            'contribution1' => 'required',
-            'email1' => 'required',
-            ]);
+        $fields = request()->get('include') === 'on'
+        ? ['nom99', 'prenom99', 'contribution1', 'email99']
+        : ['nom1', 'prenom1', 'contribution1', 'email1'];
 
-            $validate_partner[0] = [
-                'partner_name' => $partner['nom1'],
-                'partner_firstname' => $partner['prenom1'],
-                'partner_contribution' => $partner['contribution1'],
-                'partner_email' => $partner['email1'],
-            ];
-        }
+        $firstpartner = request()->validate([
+        $fields[0] => 'required',
+        $fields[1] => 'required',
+        $fields[2] => 'required',
+        $fields[3] => 'required',
+        ]);
+
 
         for ($i = 1; $i < $partner_number; $i++) {
             global $validate_partner;
@@ -93,12 +75,21 @@ class ContractsController extends Controller
 
         $contract = auth()->user()->contracts()->create($validate_contract);
 
+        $firstpartner = $contract->partners()->create([
+            'partner_name' => $firstpartner[$fields[0]],
+            'partner_firstname' => $firstpartner[$fields[1]],
+            'partner_contribution' => $firstpartner[$fields[2]],
+            'partner_email' => $firstpartner[$fields[3]],
+            ]);
+
         foreach ($validate_partner as $partner) {
             $contract->partners()->create($partner);
         }
-
-        return redirect('/')->with('success', 'Contract created');
-
+        if (request()->get('include') === 'on') {
+            return redirect(URL::signedRoute('signature.index', ['contract_id' => $contract->id, 'partner_id' => $firstpartner->id]));
+        } else {
+            return redirect('/')->with('success', 'Contract created');
+        }
     }
 
     public function show($id){
@@ -134,7 +125,9 @@ class ContractsController extends Controller
         $contract = Contract::find($id);
 
         foreach ($contract->partners as $partner) {
-            Storage::disk('public')->delete($partner->partner_signature); // Supprimer la signature du partenaire
+            if ($partner->partner_signature) {
+                Storage::disk('public')->delete($partner->partner_signature); // Supprimer la signature du partenaire
+            }
         }
 
         $contract->delete();

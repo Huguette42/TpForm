@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 <body>
-    <canvas id="signature" width=400 height=200></canvas>
+    <canvas  id="signature" width=400 height=200></canvas>
     <button onclick="clearSignature()">Clear</button>
     <button onclick="saveSignature()">Save</button>
     <form id="signform" action="{{ route('signature.store', ['contract_id' => 2, 'partner_id' => 1]) }}" method="POST">

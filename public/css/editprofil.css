@@ -8,14 +8,6 @@
     position: relative;
 }
 
-.btn-theme {
-    background-color: var(--buff-color);
-}
-
-.btn-theme:hover {
-    background-color: var(--corn-color);
-}
-
 
 .passdiv {
     display: flex;

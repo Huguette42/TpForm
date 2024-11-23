@@ -103,11 +103,7 @@ body {
     font-weight: bold;
 }
 
-.signature {
-    height: 100px;
-width: 180px;
-border: solid 1px #000;
-}
+
 
 .footerdiv {
     background-color: var(--buff-color);
@@ -143,4 +139,13 @@ border: solid 1px #000;
 
 .cursor-pointer {
     cursor: pointer;
+}
+
+
+.btn-theme {
+    background-color: var(--buff-color);
+}
+
+.btn-theme:hover {
+    background-color: var(--buff-color-light);
 }

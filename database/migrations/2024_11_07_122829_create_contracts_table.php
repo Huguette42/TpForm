@@ -8,12 +8,17 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Status :
+     * 0 = En attente
+     * 1 = Signé par le créateur
+     * 2 = Signé par tous les partenaires
      */
     public function up(): void
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->integer('contract_status')->default(0);
             $table->string('contract_nature');
             $table->string('contract_name');
             $table->string('contract_adress');

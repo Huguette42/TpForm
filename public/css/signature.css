@@ -1,0 +1,27 @@
+#refreshimg {
+    height: 40px;
+}
+
+
+.signature {
+    height: 100px;
+width: 200px;
+border: solid 1px #000;
+}
+
+.signimg {
+    height: 100px;
+    width: 200px;
+    cursor: pointer;
+}
+
+.titlesign {
+    text-align: center;
+    color: var(--text-color);
+}
+
+.downimg {
+    height: 45px;
+    margin-left: 10px;
+    margin-right: 10px;
+}

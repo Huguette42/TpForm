@@ -4,6 +4,10 @@
 Contrat
 @endsection
 
+@section('header')
+<link rel="stylesheet"  href="{{ asset('/css/signature.css')}}">
+@endsection
+
 @section('content')
 
 <div class="px-5 py-3" id="contrat">
@@ -107,10 +111,16 @@ Contrat
 <p>Signé, validé et livré en présence de :</p>
 
 <ul>
-    @for ($i = 1; $i <= $nbpartner; $i++)
-        <div class='signature'></div><br><div>{{$contract->partners[$i-1]->partner_name}} {{$contract->partners[$i-1]->partner_firstname}}</div>
-        <br>
-    @endfor
+    @foreach ($contract->partners as $partner)
+        @if ($partner->partner_signature)
+            <div class='signature'><img class="signimg" src="{{ URL::signedRoute('signature.show', ['partner_id' => $partner->id]) }}" alt="signature"></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
+            <br>
+
+        @else
+            <div class='signature'></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
+            <br>
+        @endif
+    @endforeach
 </ul>
 
 <p>Par moi : <span class="strong">{{$contract->contract_avocate_name}}</span></p>
