@@ -9,6 +9,30 @@
 
 .contrat {
     background-color: var(--vert-color);
-    width: 70%;
-    border-radius: 25px;
+    width: 85%;
+    border-radius: 15px;
+    height: 80px;
+}
+
+.statusdiv {
+    width: 120px;
+    background-color: var(--buff-color);
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.statusdiv a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+#signatureimg {
+    height: 30px;
+}
+
+.status-sign {
+    cursor: pointer;
 }

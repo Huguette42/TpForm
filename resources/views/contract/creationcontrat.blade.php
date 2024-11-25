@@ -2,7 +2,6 @@
 
 @section('header')
     <link rel="stylesheet"  href="{{ asset('/css/form.css')}}">
-
 @endsection
 
 @section('title')
@@ -21,61 +20,29 @@ Creer un contrat
             <div id="step1" class="">
 
                 <span>Nombre de parties</span>
-                <span id="numberparties-span">1</span>
-                <input id="numberparties" type="hidden" name="number" value="1">
+                <span id="numberparties-span">{{count($partners)}}</span>
+                <input id="numberparties" type="hidden" name="number" value="{{count($partners)}}">
 
-                <div>
-                    <button class="btn btn-arrow" type="button" onclick="addpartie()">Ajouter une partie</button>
-                    <button class="btn btn-arrow" type="button" onclick="removepartie()">Supprimer une partie</button>
-                </div>
                 <br>
-                <div class="d-flex justify-content-start align-items-center">
-                    <label class="form-check-label mx-3" for="include">S'inclure dans le contrat</label>
-                    <div class="form-check form-switch">
-                        <input name="include" class="form-check-input cursor-pointer contractcheckbox" type="checkbox" onclick="included()" id="include">
-                    </div>
-                </div>
                 <div id="partenaire" class="d-flex flex-wrap justify-content-center w-100 align-items-center flex-row">
-
-                    <div id='partner1' class="m-3">
-                        <h2>Partenaire 1</h2>
-                        <div class='inputdiv'>
-                                <label class='form-label' for='nom1'>Nom</label>
-                                <input class='form-control' name='nom1' type='text' placeholder='Nom'>
-                        </div><br>
-                        <div>
-                                <label class='form-label' for='prenom1'>Prénom</label>
-                                <input class='form-control' name='prenom1' type='text' placeholder='Prénom'>
-                        </div><br>
-                        <div>
-                                <label class='form-label' for='email1'>Email</label>
-                                <input class='form-control' name='email1' type='text' placeholder='Email'>
+                    @for ($i = 0; $i < count($partners); $i++)
+                        <div id='partner{{$i}}' class="m-3">
+                            <h2>Partenaire {{$i}}</h2>
+                            <div class='inputdiv'>
+                                    <label class='form-label' for='nom{{$i}}'>Nom</label>
+                                    <input disabled class='form-control' name='nom{{$i}}' type='text' value="{{$partners[$i]->partner_name}}">
+                            </div><br>
+                            <div>
+                                    <label class='form-label' for='prenom{{$i}}'>Prénom</label>
+                                    <input disabled class='form-control' name='prenom{{$i}}' type='text' value="{{$partners[$i]->partner_firstname}}">
+                            </div><br>
+                            <div>
+                                    <label class='form-label' for='email{{$i}}'>Email</label>
+                                    <input disabled class='form-control' name='email{{$i}}' type='text' value="{{$partners[$i]->partner_email}}">
+                                    <input type='hidden' name='id{{$i}}' value='{{$partners[$i]->id}}'>
+                            </div>
                         </div>
-                </div>
-                    <div id="partnerinclude" class="m-3 d-none">
-                        <h2>Moi</h2>
-                        <div class='inputdiv'>
-                                <label class='form-label' for='nom99'>Nom</label>
-                                <input disabled class='form-control' name='nom99' type='text' value="{{auth()->user()->lastname}}" placeholder='Nom'>
-                        </div><br>
-                        <div>
-                                <label class='form-label' for='prenom99'>Prénom</label>
-                                <input disabled class='form-control' name='prenom99' type='text' value="{{auth()->user()->firstname}}" placeholder='Prénom'>
-                        </div><br>
-                        <div>
-                                <label class='form-label' for='email99'>Email</label>
-                                <input disabled class='form-control' name='email99' type='text' value="{{auth()->user()->email}}" placeholder='Email'>
-                        </div>
-                        @error('nom99')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        @error('prenom99')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        @error('email99')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
+                    @endfor
                 </div>
             </div>
             <br>
@@ -103,10 +70,13 @@ Creer un contrat
                 <br>
             </div>
             <div id="step3" class="d-none d-flex justify-content-center align-items-center flex-wrap">
-                <div class="m-3 inputdiv">
-                    <h2 id="contribtitle1">Contribution 1</h2>
-                    <textarea class="form-control" name='contribution1' placeholder='Contribution'></textarea><br>
-                </div>
+                @for ($i = 0; $i < count($partners); $i++)
+                    <div class="m-3 inputdiv">
+                        <h2 id="contribtitle{{$i}}">Contribution {{$i}}</h2>
+                        <textarea class="form-control" name='partner_contribution{{$i}}' placeholder='Contribution'></textarea><br>
+                    </div>
+                @endfor
+
             </div>
             <div id="step4" class="d-none">
                 <h2>Modalités bancaire</h2>
@@ -115,7 +85,9 @@ Creer un contrat
                 <br>
                 <label for="minsignature">Les cheques doivent etre signer par au moins</label>
                 <select class="form-select my-3" id="minsignature" name="minsignature">
-                    <option value="1">1 personne</option>
+                    @for ($i = 0; $i < count($partners); $i++)
+                        <option value="{{$i+1}}">{{$i+1}} personne</option>
+                    @endfor
                 </select>
             </div>
             <div id="step5" class="d-none">

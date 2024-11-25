@@ -43,7 +43,7 @@
 
     <ol>
     @for ($i = 1; $i <= $nbpartner; $i++)
-        <li><span class="strong">{{$contract->partners[$i-1]->partner_contribution}}</span></li><br>
+        <li><span class="strong">{{$contract->partners[$i-1]->pivot->partner_contribution}}</span></li><br>
     @endfor
     </ol>
 

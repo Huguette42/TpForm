@@ -82,28 +82,8 @@ function addpartie() {
     const number = document.getElementById('numberparties').value
     document.getElementById('numberparties').value = parseInt(number) + 1;
     document.getElementById('numberparties-span').innerHTML = parseInt(number) + 1;
-    const step2Div = document.getElementById('partenaire');
-    const newdiv = document.createElement('div');
-    newdiv.id = 'partner' + (parseInt(number) + 1);
-    newdiv.className = 'm-3';
-    newdiv.innerHTML = `
 
-                                        <h2>Partenaire ${parseInt(number)+1}</h2>
-                                        <div class='inputdiv'>
-                                                <label class='form-label' for='nom${parseInt(number)+1}'>Nom</label>
-                                                <input class='form-control' name='nom${parseInt(number)+1}' type='text' placeholder='Nom'>
-                                        </div><br>
-                                        <div>
-                                                <label class='form-label' for='prenom${parseInt(number)+1}'>Prénom</label>
-                                                <input class='form-control' name='prenom${parseInt(number)+1}' type='text' placeholder='Prénom'>
-                                        </div><br>
-                                        <div>
-                                                <label class='form-label' for='email${parseInt(number)+1}'>Email</label>
-                                                <input class='form-control' name='email${parseInt(number)+1}' type='text' placeholder='Email'>
-                                        </div>
-
-                        `;
-    step2Div.appendChild(newdiv);
+    
     step5 = document.getElementById('minsignature');
     step5.innerHTML = '';
     for (let i = 1; i <= parseInt(number)+1; i++) {

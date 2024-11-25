@@ -42,54 +42,66 @@ class ContractsController extends Controller
 
         $validate_partner = [];
 
-        $fields = request()->get('include') === 'on'
-        ? ['nom99', 'prenom99', 'contribution1', 'email99']
-        : ['nom1', 'prenom1', 'contribution1', 'email1'];
-
-        $firstpartner = request()->validate([
-        $fields[0] => 'required',
-        $fields[1] => 'required',
-        $fields[2] => 'required',
-        $fields[3] => 'required',
-        ]);
 
 
-        for ($i = 1; $i < $partner_number; $i++) {
+        for ($i = 0; $i < $partner_number; $i++) {
             global $validate_partner;
 
             $partner = request()->validate([
-            'nom'.($i+1) => 'required',
-            'prenom'.($i+1) => 'required',
-            'contribution'.($i+1) => 'required',
-            'email'.($i+1) => 'required',
+            'id'.($i) => 'required',
+            'partner_contribution'.($i) => 'required',
             ]);
 
             $validate_partner[$i] = [
-                'partner_name' => $partner['nom'.($i+1)],
-                'partner_firstname' => $partner['prenom'.($i+1)],
-                'partner_contribution' => $partner['contribution'.($i+1)],
-                'partner_email' => $partner['email'.($i+1)],
+                'partner_id' => $partner['id'.($i)],
+                'partner_contribution' => $partner['partner_contribution'.($i)],
             ];
         }
 
 
         $contract = auth()->user()->contracts()->create($validate_contract);
 
-        $firstpartner = $contract->partners()->create([
-            'partner_name' => $firstpartner[$fields[0]],
-            'partner_firstname' => $firstpartner[$fields[1]],
-            'partner_contribution' => $firstpartner[$fields[2]],
-            'partner_email' => $firstpartner[$fields[3]],
-            ]);
+
+
+
+
+
+
 
         foreach ($validate_partner as $partner) {
-            $contract->partners()->create($partner);
+            $contract->partners()->attach($partner['partner_id'], ['partner_contribution' => $partner['partner_contribution']]);
         }
-        if (request()->get('include') === 'on') {
+
+        $firstpartner = $contract->partners()->where('partner_email', auth()->user()->email)->first();
+        if ($firstpartner != null) {
             return redirect(URL::signedRoute('signature.index', ['contract_id' => $contract->id, 'partner_id' => $firstpartner->id]));
         } else {
+            $contract->update(['contract_status' => 1]);
             return redirect('/')->with('success', 'Contract created');
         }
+    }
+
+    public function partner(){
+        if (request()->has('selected_partners')) {
+            session()->flash('selected_partners', request()->get('selected_partners'));
+        } else if (session()->has('selected_partners')) {
+            session()->flash('selected_partners', session()->get('selected_partners'));
+        } else {
+            session()->flash('selected_partners', "vide");
+        }
+
+        if (request()->has('search')) {
+            if (request()->get('search') === '') {
+                $partners = Partner::limit(10)->get();
+                return view('contract.partner', compact('partners'));// probleme avec le with
+            }
+            $partners = Partner::where('partner_name', 'like', '%'.request()->get('search').'%')->limit(10)->get();
+            return view('contract.partner', compact('partners'));
+
+        }
+        $partners = Partner::limit(10)->get();
+
+        return view('contract.partner', compact('partners'));
     }
 
     public function show($id){
@@ -117,7 +129,22 @@ class ContractsController extends Controller
 
         $nbpartner = $contract->partners->count();
 
+
+
+
+
         return view('contract.show', ['contract' => $contract, 'dateajd' => $dateajd, 'dateDebutContrat' => $dateDebutContrat, 'nbpartner' => $nbpartner]);
+    }
+
+    public function storeshow() {
+        $selected_partners = request()->get('selected_partners');
+        if ($selected_partners != "vide") {
+            $selected_partners = explode(',', $selected_partners);
+            $partners = Partner::whereIn('id', $selected_partners)->get();
+        } else {
+            return redirect('/partner');
+        }
+        return view('contract.creationcontrat', compact('partners'));
     }
 
     public function destroy($id)
@@ -156,50 +183,75 @@ class ContractsController extends Controller
     }
 
     public function update($id)
-    {
+{
+    $contract = Contract::findOrFail($id);
 
-        $contract = Contract::find($id);
+    $validatedData = request()->validate([
+        'contract_date' => 'required',
+        'contract_name' => 'required',
+        'contract_nature' => 'required',
+        'contract_address' => 'required',
+        'contract_repartition' => 'required',
+        'contract_min_sign' => 'required',
+        'contract_clause_duration' => 'required',
+        'contract_state' => 'required',
+        'contract_location' => 'required',
+        'contract_avocate_name' => 'required',
+    ]);
 
-        $validatedData = request()->validate([
-            'contract_date' => 'required',
-            'contract_name' => 'required',
-            'contract_nature' => 'required',
-            'contract_address' => 'required',
+    $validate_partners = [];
+    $partner_ids = $contract->partners->pluck('id')->toArray();
 
-            'contract_repartition' => 'required',
-            'contract_min_sign' => 'required',
-            'contract_clause_duration' => 'required',
-
-            'contract_state' => 'required',
-            'contract_location' => 'required',
-            'contract_avocate_name' => 'required',
+    foreach ($partner_ids as $index => $partner_id) {
+        $partnerData = request()->validate([
+            "partner_name_$index" => 'required',
+            "partner_firstname_$index" => 'required',
+            "partner_contribution_$index" => 'required',
+            "partner_email_$index" => 'required|email',
         ]);
 
-        $validate_partners = [];
-        $partner_number = $contract->partners->count();
+        $validate_partners[$partner_id] = [
+            'partner_name' => $partnerData["partner_name_$index"],
+            'partner_firstname' => $partnerData["partner_firstname_$index"],
+            'partner_contribution' => $partnerData["partner_contribution_$index"],
+            'partner_email' => $partnerData["partner_email_$index"],
+        ];
+    }
 
-        for ($i = 0; $i < $partner_number; $i++) {
-            global $validate_partners;
+    $contract->update($validatedData);
 
-            $partner = request()->validate([
-            'partner_name_'.$i => 'required',
-            'partner_firstname_'.$i => 'required',
-            'partner_contribution_'.$i => 'required',
-            'partner_email_'.$i => 'required',
+
+    foreach ($validate_partners as $partner_id => $partnerData) {
+        $contract->partners()->updateExistingPivot($partner_id, [
+            'partner_contribution' => $partnerData['partner_contribution'],
+        ]);
+
+        $partner = $contract->partners()->find($partner_id);
+        if ($partner) {
+            $partner->update([
+                'name' => $partnerData['partner_name'],
+                'firstname' => $partnerData['partner_firstname'],
+                'email' => $partnerData['partner_email'],
             ]);
-            $validate_partners[$i] = [
-                'partner_name' => $partner['partner_name_'.$i],
-                'partner_firstname' => $partner['partner_firstname_'.$i],
-                'partner_contribution' => $partner['partner_contribution_'.$i],
-                'partner_email' => $partner['partner_email_'.$i],
-            ];
         }
+    }
 
-        $contract->update($validatedData);
+    return redirect('/')->with('success', 'Contract updated successfully.');
+}
+    public function storepartner()
+    {
+        $validatedData = request()->validate([
+            'partner_name' => 'required',
+            'partner_firstname' => 'required',
+            'partner_email' => 'required',
+        ]);
 
-        for ($i = 0; $i < $partner_number; $i++) {
-            $contract->partners[$i]->update($validate_partners[$i]);
-        }
-        return redirect('/')->with('success', 'Contract updated');
+        Partner::create($validatedData);
+
+        //recuperer les partenaires avec l'input
+        $selected_partner = request()->get('selected_partners');
+
+
+        return redirect('/partner')->with('selected_partners', $selected_partner);
     }
 }

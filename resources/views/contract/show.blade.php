@@ -42,7 +42,7 @@ Contrat
 
 <ol>
 @for ($i = 1; $i <= $nbpartner; $i++)
-    <li><span class="strong">{{$contract->partners[$i-1]->partner_contribution}}</span></li><br>
+    <li><span class="strong">{{$contract->partners[$i-1]->pivot->partner_contribution}}</span></li><br>
 @endfor
 </ol>
 
@@ -112,8 +112,8 @@ Contrat
 
 <ul>
     @foreach ($contract->partners as $partner)
-        @if ($partner->partner_signature)
-            <div class='signature'><img class="signimg" src="{{ URL::signedRoute('signature.show', ['partner_id' => $partner->id]) }}" alt="signature"></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
+        @if ($partner->pivot->partner_signature)
+            <div class='signature'><img class="signimg" src="{{ URL::signedRoute('signature.show', ['contract_id' => $contract->id, 'partner_id' => $partner->id]) }}" alt="signature"></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
             <br>
 
         @else

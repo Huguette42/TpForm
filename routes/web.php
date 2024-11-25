@@ -39,9 +39,9 @@ Route::get('/register', function () {
 
 Route::post('/contract', [ContractsController::class, 'store'])->middleware('auth')->name('contracts.store');
 
-Route::get('/contract', function () {
-    return view('contract.creationcontrat');
-})->middleware('auth')->name('contracts.get');
+Route::get('/contract', [ContractsController::class, 'storeshow'])->middleware('auth')->name('contracts.get');
+
+
 
 Route::get('/editprofil', [ConnectionController::class, 'edituser'])->middleware('auth')->name('user.edit');
 
@@ -59,15 +59,15 @@ Route::get('/contract/{id}/edit', [ContractsController::class, 'edit'])->middlew
 
 Route::put('/contract/{id}', [ContractsController::class, 'update'])->middleware('auth')->name('contracts.update');
 
-Route::get('/signature/show/{partner_id}', [SignatureController::class, 'show'])->middleware('signed')->name('signature.show');
+Route::get('/signature/show/{contract_id}/{partner_id}', [SignatureController::class, 'show'])->middleware('signed')->name('signature.show');
 
 Route::get('/signature/{contract_id}/{partner_id}', [SignatureController::class, 'index'])->middleware('signed')->name('signature.index');
 
 Route::put('/signature/{contract_id}/{partner_id}', [SignatureController::class, 'store'])->middleware(['auth','signed'])->name('signature.store');
 
-Route::get('test', function () {
-    return view('testsign');
-});
+Route::get('/partner', [ContractsController::class, 'partner'])->middleware('auth')->name('partner.get');
+
+Route::post('/partner/store', [ContractsController::class, 'storepartner'])->middleware('auth')->name('partner.store');
 
 Route::get('test/email', function () {
     Mail::to('hugojeanselme@gmail.com')->send(new WelcomMail());
@@ -90,3 +90,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+

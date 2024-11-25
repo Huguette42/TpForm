@@ -20,6 +20,7 @@ class Contract extends Model
         'contract_state',
         'contract_location',
         'contract_avocate_name',
+        'contract_status',
     ];
 
     public function user()
@@ -28,6 +29,6 @@ class Contract extends Model
     }
     public function partners()
     {
-        return $this->hasMany(Partner::class);
+        return $this->belongsToMany(Partner::class, 'contract_partner')->withPivot('partner_contribution', 'partner_signature');
     }
 }

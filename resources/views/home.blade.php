@@ -11,13 +11,30 @@ Dashboard
 @section('content')
 <div class="testmain">
 <div class="d-flex justify-content-end px-5 align-items-center">
-    <a href="{{ route('contracts.get')}}"><button class="btn btn-lg btn-theme">Creer un contrat</button></a>
+    <a href="{{ route('partner.get')}}"><button class="btn btn-lg btn-theme">Creer un contrat</button></a>
 </div>
 <div class="mt-5 mb-auto d-flex justify-content-around align-items-center flex-column" id="contratdiv">
 
     @if (count($contracts) != 0)
         @foreach ($contracts as $contract)
             <div class="contrat my-3 d-flex justify-content-around align-items-center p-3">
+                <div class="statusdiv">
+                    @if ($contract->contract_status == 0)
+                        @for ($i = 0; $i < count($contract->partners); $i++)
+                            @php
+                                $partner = $contract->partners[$i];
+                            @endphp
+                            @if ($partner->partner_email == Auth::user()->email)
+                                <a href="{{URL::signedRoute('signature.index', ['contract_id' => $contract->id, 'partner_id' => $partner->id])}}"><span class="status-sign">Signer  <img id="signatureimg" src="{{asset('img/signature.png')}}"></span></a>
+                            @endif
+                        @endfor
+
+                    @elseif ($contract->contract_status == 1)
+                        <span class="status status-signe">En attente</span>
+                    @else
+                        <span class="status status-refuse">Prêt</span>
+                    @endif
+                </div>
                 <span>{{ $contract->contract_nature }}</span>
                 <span>{{ $contract->contract_name }}</span>
                 <span>{{ $contract->contract_adress }}</span>

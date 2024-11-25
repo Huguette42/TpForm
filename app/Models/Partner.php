@@ -19,6 +19,6 @@ class Partner extends Model
 
     public function contract()
     {
-        return $this->belongsTo(Contract::class);
+        return $this->belongsToMany(Contract::class, 'contract_partner')->withPivot('partner_contribution', 'partner_signature');
     }
 }

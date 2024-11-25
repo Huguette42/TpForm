@@ -16,25 +16,50 @@ class SignatureController extends Controller
             'signature' => 'required',
         ]);
 
-        // Décoder les données base64
+
         $base64Image = $signature['signature'];
-        $imageData = explode(',', $base64Image)[1]; // Enlever le type de données (e.g., "data:image/png;base64,")
+
+        if (strpos($base64Image, ',') === false) {
+            return redirect()->back()->withErrors('Le format de la signature est invalide.');
+        }
+
+        $imageData = explode(',', $base64Image)[1]; // Enlever le type de données
         $imageData = base64_decode($imageData);
 
-        // Créer un nom de fichier unique pour la signature
+        if ($imageData === false) {
+            return redirect()->back()->withErrors('Impossible de décoder l\'image.');
+        }
+
         $fileName = 'signature_' . time() . '.png';
 
-        // Sauvegarder l'image décodée dans le dossier de stockage public
         $filePath = 'signatures/' . $fileName;
         Storage::disk('public')->put($filePath, $imageData);
 
-        // Mettre à jour le champ `partner_signature` avec le chemin de l'image
-        Contract::find($contract_id)->partners()->find($partner_id)->update([
+        $contract = Contract::find($contract_id);
+
+        $foundpartner = $contract->partners()->find($partner_id);
+
+        if (!$foundpartner) {
+            return redirect()->back()->withErrors('Partenaire non trouvé pour ce contrat.');
+        }
+
+        $contract->partners()->updateExistingPivot($partner_id, [
             'partner_signature' => $filePath,
         ]);
 
+        if ($foundpartner->partner_email == $contract->user->email) {
+            $contract->update([
+                'contract_status' => 1,
+            ]);
+        }
 
+        if ($contract->partners()->whereNotNull('partner_signature')->count() === $contract->partners()->count()) {
+            $contract->update([
+                'contract_status' => 2,
+            ]);
+        }
         return redirect('/')->with('success', 'Signature enregistrée avec succès');
+
     }
 
     public function index($contract_id, $partner_id)
@@ -65,8 +90,12 @@ class SignatureController extends Controller
         return view('signature.index', compact('contract_id', 'partner_id', 'contract', 'dateajd', 'dateDebutContrat', 'nbpartner'));
     }
 
-    public function show($partner_id)
+    public function show($contract_id, $partner_id)
     {
-        return response()->file(storage_path('app/public/' . Partner::find($partner_id)->partner_signature));
+        $contract = Contract::find($contract_id);
+        $partner = $contract->partners()->find($partner_id);
+
+
+        return response()->file(storage_path('app/public/' . $partner->pivot->partner_signature));
     }
 }

@@ -7,7 +7,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - /app/
+      - .:/app
+      - /app/vendor
     environment:
       PHP_DISPLAY_ERRORS: "1"
       PHP_MEMORY_LIMIT: "512M"

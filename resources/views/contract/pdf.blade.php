@@ -25,6 +25,23 @@ $dateDebutContrat = $jours[date('w', $timestamp)].' '.date('j', $timestamp).' '.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contrat de Partenariat Commercial</title>
+    <style>
+            .signature {
+            height: 100px;
+        width: 200px;
+        border: solid 1px #000;
+        }
+
+        .signimg {
+            height: 100px;
+            width: 200px;
+            cursor: pointer;
+        }
+
+        .strong {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h1>Contrat de Partenariat Commercial</h1>
@@ -58,7 +75,7 @@ $dateDebutContrat = $jours[date('w', $timestamp)].' '.date('j', $timestamp).' '.
 
     <ol>
     @for ($i = 1; $i <= $nbpartner; $i++)
-        <li><span class="strong">{{$contract->partners[$i-1]->partner_contribution}}</span></li><br>
+        <li><span class="strong">{{$contract->partners[$i-1]->pivot->partner_contribution}}</span></li><br>
     @endfor
     </ol>
 
@@ -127,10 +144,16 @@ $dateDebutContrat = $jours[date('w', $timestamp)].' '.date('j', $timestamp).' '.
     <p>Signé, validé et livré en présence de :</p>
 
     <ul>
-        @for ($i = 1; $i <= $nbpartner; $i++)
-            <div class='signature'></div><br><div>{{$contract->partners[$i-1]->partner_name}} {{$contract->partners[$i-1]->partner_firstname}}</div>
+        @foreach ($contract->partners as $partner)
+        @if ($partner->pivot->partner_signature)
+            <div class='signature'><img class="signimg" src="{{storage_path('app/public/' . $partner->pivot->partner_signature)}}" alt="signature"></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
             <br>
-        @endfor
+
+        @else
+            <div class='signature'></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
+            <br>
+        @endif
+    @endforeach
     </ul>
 
     <p>Par moi : <span class="strong">{{$contract->contract_avocate_name}}</span></p>
