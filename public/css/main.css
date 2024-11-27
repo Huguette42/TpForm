@@ -169,7 +169,10 @@ body {
     cursor: pointer;
 }
 
-
+.link {
+    text-decoration: none;
+    color: var(--text-color);
+}
 
 /*
     Boutons du site

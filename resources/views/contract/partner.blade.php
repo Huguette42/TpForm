@@ -35,6 +35,11 @@
                 <span class="partneritem">{{ $partner->partner_name }}</span>
                 <span class="partneritem">{{ $partner->partner_firstname }}</span>
                 <span class="partneremail">{{ $partner->partner_email }}</span>
+                <a class="link" href="{{ url("partner/".$partner->id."/destroy") }}">
+
+                    <span class="btn btn-danger ms-3">Suprimer</span>
+
+                </a>
             </div>
         @endforeach
     @endif

@@ -261,4 +261,12 @@ class ContractsController extends Controller
 
         return redirect('/partner')->with('selected_partners', $selected_partner);
     }
+
+    public function destroyPartner($id)
+    {
+        $partner = Partner::find($id);
+        $partner->delete();
+
+        return redirect('/partner');
+    }
 }

@@ -65,6 +65,8 @@ Route::get('/signature/{contract_id}/{partner_id}', [SignatureController::class,
 
 Route::put('/signature/{contract_id}/{partner_id}', [SignatureController::class, 'store'])->middleware(['auth','signed'])->name('signature.store');
 
+Route::get('/partner/{id}/destroy', [ContractsController::class, 'destroyPartner'])->middleware('auth')->name('partner.destroy');
+
 Route::get('/partner', [ContractsController::class, 'partner'])->middleware('auth')->name('partner.get');
 
 Route::post('/partner/store', [ContractsController::class, 'storepartner'])->middleware('auth')->name('partner.store');
