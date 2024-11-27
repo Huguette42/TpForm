@@ -1,3 +1,10 @@
+{{--
+    Utilisation de la template : base, dans layouts
+
+    Plusieurs sections sont définies : header, title, content
+--}}
+
+
 @extends('layouts.base')
 
 @section('header')
@@ -9,14 +16,32 @@ Creer un contrat
 @endsection
 
 @section('content')
-    <div class="w-100 d-flex justify-content-center align-items-center py-4 testmain">
-        <form id="mainform" class="d-flex justify-content-center align-items-center flex-column" action="{{ route('contracts.store') }}" method="POST">
+    <div class="main-block w-100 d-flex justify-content-center align-items-center py-4">
+
+        {{--
+            Formulaire de creation de contrat
+        --}}
+
+        <form class="form-contrat d-flex justify-content-center align-items-center flex-column" action="{{ route('contracts.store') }}" method="POST">
             @csrf
+
             <h1>Création du contrat</h1><br>
+
+            {{--
+                Div de la barre de progression du formulaire
+
+                Les elements de la barre de progression sont ajoutés dynamiquement en javascript
+            --}}
+
             <div id="stepper" class="stepper">
 
             </div>
 
+
+            {{--
+                Le formulaire est divisé en plusieurs étapes, chaque étape est une categorie de données du contrat
+            --}}
+            
             <div id="step1" class="">
 
                 <span>Nombre de parties</span>
@@ -71,8 +96,8 @@ Creer un contrat
             </div>
             <div id="step3" class="d-none d-flex justify-content-center align-items-center flex-wrap">
                 @for ($i = 0; $i < count($partners); $i++)
-                    <div class="m-3 inputdiv">
-                        <h2 id="contribtitle{{$i}}">Contribution {{$i}}</h2>
+                    <div class="m-3 inputdivcontr">
+                        <h2 id="contribtitle{{$i}}">Contribution {{$partners[$i]->partner_name}}</h2>
                         <textarea class="form-control" name='partner_contribution{{$i}}' placeholder='Contribution'></textarea><br>
                     </div>
                 @endfor

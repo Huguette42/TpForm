@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="w-100 d-flex justify-content-center align-items-center py-4 testmain">
+<div class="main-block w-100 d-flex justify-content-center align-items-center py-4">
 
 <div id="mainpartner" class="d-flex justify-content-around align-items-center">
 <div>

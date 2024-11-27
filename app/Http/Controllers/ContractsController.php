@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SignatureContrat;
 use App\Models\Contract;
 use App\Models\Partner;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Storage;
@@ -70,6 +72,11 @@ class ContractsController extends Controller
 
         foreach ($validate_partner as $partner) {
             $contract->partners()->attach($partner['partner_id'], ['partner_contribution' => $partner['partner_contribution']]);
+        }
+
+        foreach ($contract->partners as $partner) {
+            $url =URL::signedRoute('signature.index', ['contract_id' => $contract->id, 'partner_id' => $partner->id]);
+            Mail::to($partner->partner_email)->send(new SignatureContrat($url));
         }
 
         $firstpartner = $contract->partners()->where('partner_email', auth()->user()->email)->first();

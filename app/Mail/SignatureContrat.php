@@ -8,14 +8,11 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
-class WelcomeMail extends Mailable
+class SignatureContrat extends Mailable
 {
     use Queueable, SerializesModels;
-
-    /**
-     * The URL for the email.
-     */
 
     /**
      * Create a new message instance.
@@ -31,8 +28,8 @@ class WelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Signature de votre contrat'
-
+            subject: 'Signature Contrat',
+            from: new Address('partenato@hugojsm.fr','Partenato')
         );
     }
 

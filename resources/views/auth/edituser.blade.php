@@ -10,6 +10,7 @@
 
 
 @section('content')
+<div class="main-block">
     <div class="container maindiv">
         <h1>Modifier le profil</h1>
         <form action="{{ route('user.update') }}" method="POST">
@@ -63,4 +64,5 @@
             <button type="submit" class="btn btn-theme">Changer</button>
             <script src="{{ asset('js/auth.js') }}"></script>
     </div>
+</div>
 @endsection

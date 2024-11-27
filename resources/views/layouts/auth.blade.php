@@ -13,8 +13,9 @@
 </head>
 <body class="loginmain">
     <div class="position-absolute postion-custom">
-        <img id="mode-dark" src="{{asset("img/soleil.png")}}" alt="soleil" class="mode-img d-none" onclick="changemode('light')">
-        <img id="mode-light" src="{{asset("img/lune.png")}}" alt="lune" class="mode-img" onclick="changemode('dark')">
+        <img class="header__image-mode d-none" id="mode-dark" src="{{asset("img/soleil.png")}}" alt="soleil" onclick="changemode('light')">
+
+        <img class="header__image-mode" id="mode-light" src="{{asset("img/lune.png")}}" alt="lune" onclick="changemode('dark')">
     </div>
     <div class="loginborder">
         @yield('content')

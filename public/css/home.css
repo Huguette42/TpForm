@@ -1,11 +1,7 @@
-.btn-theme {
-    background-color: var(--buff-color);
-    color: var(--text-color) !important;
-}
 
-.btn-theme:hover {
-    background-color: var(--corn-color);
-}
+/*
+    Style de chaque contrat
+*/
 
 .contrat {
     background-color: var(--vert-color);
@@ -14,7 +10,7 @@
     height: 80px;
 }
 
-.statusdiv {
+.contrat__status {
     width: 120px;
     background-color: var(--buff-color);
     height: 50px;
@@ -24,15 +20,32 @@
     align-items: center;
 }
 
-.statusdiv a {
+.contrat__link {
     text-decoration: none;
     color: var(--text-color);
 }
 
-#signatureimg {
+.contrat__status-btn {
+    cursor: pointer;
+}
+
+.contrat__image {
     height: 30px;
 }
 
-.status-sign {
-    cursor: pointer;
+
+/*
+    Informations du contrat : nature(1) et nom(2
+*/
+
+.contract__info {
+    width: 40%;
+}
+
+.contrat__info-1 {
+    width: 60%;
+}
+
+.contrat__info-2{
+    width: 30%;
 }

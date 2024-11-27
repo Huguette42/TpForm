@@ -1,11 +1,34 @@
+/**
+ * Nom du fichier : form.js
+ * Description    : Fichier de script de la page de creation de contrat
+ * Auteur         : Hugo Jeanselme
+ *
+ * Utilisation :
+ * - Generation et gestion de la barre de progression
+ * - Gestion de la navigation entre les étapes
+ * - Reactivation des champs désactivés avant la soumission du formulaire
+ *
+ */
+
+
+
+// Variables globales necessaires pour la gestion de la barre de progression et de la navigation
+
 step = 1
 steppermainLeft = 0
 
 
+// Fonction permettant de passer a l'etape suivante
+
 function nextstep() {
+
+    // Verifie qu'il n'y a pas de depassement du nombre d'etapes
+
     if (step < 6) {
+
+        // Recuperation des elements necessaires
+
         let suivbtn = document.getElementById("buttonsuivant")
-        suivbtn.disabled = true;
 
         let stepper1 = document.getElementById("stepper" + step)
 
@@ -13,9 +36,15 @@ function nextstep() {
 
         let stepsep1 = document.getElementById("stepsep" + step);
 
-        steppermainLeft = steppermainLeft+145
 
-        mainstepper.style.left = steppermainLeft + "px";
+        // Desactivation du bouton suivant pendant l'animation pour laisser le temps a l'animation de se terminé
+
+        suivbtn.disabled = true;
+
+
+
+
+        mainstepper.style.left = (steppermainLeft+145) + "px";
 
         stepper1.classList.remove("step-circle-inactive");
         stepper1.classList.add("step-circle-done");
@@ -38,6 +67,9 @@ function nextstep() {
     }
 
 }
+
+
+// Fonction permettant de revenir a l'etape precedente
 
 function prevstep() {
     if (step > 1) {
@@ -78,68 +110,10 @@ function prevstep() {
     }
 }
 
-function addpartie() {
-    const number = document.getElementById('numberparties').value
-    document.getElementById('numberparties').value = parseInt(number) + 1;
-    document.getElementById('numberparties-span').innerHTML = parseInt(number) + 1;
-
-    
-    step5 = document.getElementById('minsignature');
-    step5.innerHTML = '';
-    for (let i = 1; i <= parseInt(number)+1; i++) {
-        step5.innerHTML += `
-                        <option value="${i}">${i} partenaire minimum</option>
-                        `;
-    }
-
-    const step3Div = document.getElementById('step3');
-    const newdiv2 = document.createElement('div');
-    newdiv2.id = 'partnercontrib' + parseInt(number) + 1;
-    newdiv2.className = 'm-3 inputdiv';
-    newdiv2.innerHTML = `
-                                        <h2>Contribution ${parseInt(number)+1}</h2>
-                                        <textarea class="form-control" name='contribution${parseInt(number)+1}' placeholder='Contribution'></textarea><br>
-                               `;
-    step3Div.appendChild(newdiv2);
-
-}
-
-function removepartie() {
-    const number = document.getElementById('numberparties').value
-    if (number > 1) {
-        document.getElementById('numberparties').value = parseInt(number) - 1;
-        document.getElementById('numberparties-span').innerHTML = parseInt(number) - 1;
-        document.getElementById('partner' + number).remove();
-        document.getElementById('partnercontrib' + number).remove();
-
-    }
-}
 
 
-
-function included() {
-    const partner = document.getElementById('partnerinclude')
-    const partner1 = document.getElementById('partner1')
-    const contribtitle1 = document.getElementById('contribtitle1')
-    if (document.getElementById('include').checked) {
-        partner.classList.remove('d-none')
-        partner1.classList.add('d-none')
-        contribtitle1.innerHTML = 'Ma contribution'
-
-    } else {
-        partner.classList.add('d-none')
-        partner1.classList.remove('d-none')
-        contribtitle1.innerHTML = 'Contribution 1'
-    }
-
-
-
-
-
-}
-
-
-//Quand le dom est chargé
+// Permet de generer la barre de progression
+// Quand le dom est chargé
 document.addEventListener('DOMContentLoaded', function () {
     const elements = [
         "Noms",
@@ -176,6 +150,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+
+
+// Permet de re-activer les champs desactivés avant la soumission du formulaire
 
 const form = document.getElementById('mainform');
 form.addEventListener('submit', () => {

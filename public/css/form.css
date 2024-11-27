@@ -1,7 +1,9 @@
 
+/*
+    Block de création de contrat
+*/
 
-
-#mainform {
+.form-contrat {
     background-color: var(--beige-color)!important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -124,6 +126,10 @@ textarea {
     width: 270px;
 }
 
+.inputdivcontr {
+    width: 360px;
+}
+
 .contractcheckbox {
     width: 60px !important;
     height: 30px !important;
@@ -169,3 +175,5 @@ textarea {
 .partneremail {
     width: 50%;
 }
+
+
