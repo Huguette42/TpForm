@@ -10,6 +10,15 @@
     position: relative;
 }
 
+#mainpartner {
+    background-color: var(--beige-color)!important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    width: 75%;
+    padding: 50px;
+    position: relative;
+}
+
 textarea {
     resize: none;
 }
@@ -136,4 +145,27 @@ textarea {
 .form-check-input:checked {
     background-color: #D4A373;
     border-color: #D4A373;
+}
+
+.form-check-input:focus {
+    box-shadow: none !important;
+}
+
+
+.partner{
+    background-color: var(--buff-color);
+    border-radius: 15px;
+}
+
+.partnercheck:checked {
+    background-color: var(--done-color);
+    border-color: var(--done-color);
+}
+
+.partneritem {
+    width: 20%;
+}
+
+.partneremail {
+    width: 50%;
 }

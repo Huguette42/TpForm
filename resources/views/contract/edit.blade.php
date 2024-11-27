@@ -52,7 +52,7 @@
 
         <div class="mb-3">
             <label for="partner_contribution_{{ $i }}" class="form-label">Contribution :</label>
-            <input type="text" id="partner_contribution_{{ $i }}" name="partner_contribution_{{ $i }}" class="form-control" value="{{ $contract->partners[$i]->partner_contribution }}">
+            <input type="text" id="partner_contribution_{{ $i }}" name="partner_contribution_{{ $i }}" class="form-control" value="{{ $contract->partners[$i]->pivot->partner_contribution }}">
         </div>
     @endfor
 

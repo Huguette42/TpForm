@@ -23,6 +23,8 @@ function updateFormsWithSelectedPartners(partnerId, isChecked) {
         // Met à jour la valeur de l'input
         hiddenInputs[i].value = selectedPartners.join(',');
     };
+
+    document.getElementById('numberpartnerselect').innerHTML =  "Vous avez séléctionné " + hiddenInputs[0].value.split(',').map(Number).length + " partenaire(s)";
 }
 
 function checkbox_change(checkbox) {
@@ -57,6 +59,7 @@ function refresh_checkbox() {
         selectedPartners = hiddenInput.value.split(',').map(Number);
     }
 
+    document.getElementById('numberpartnerselect').innerHTML =  "Vous avez séléctionné " + selectedPartners.length + " partenaire(s)";
 
     for (let i = 0; i < checkboxes.length; i++) {
         const checkbox = checkboxes[i];
