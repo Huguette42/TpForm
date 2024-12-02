@@ -1,3 +1,12 @@
+{{--
+    Nom du fichier : footer.blade.php
+    Description    : Pied de page de l'application
+    Auteur         : Hugo Jeanselme
+
+    Utilisation :
+    - Affichage des informations sommaire de l'application : Mail, Github et droits
+--}}
+
 
 {{--
     Pied de page de l'application

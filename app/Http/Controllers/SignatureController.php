@@ -66,26 +66,27 @@ class SignatureController extends Controller
     {
         $contract = Contract::find($contract_id);
 
+        /// Recuperation des dates
 
-        // Tableau des mois en français
+        $date_creation = strtotime($contract->contract_datecreation);
+
+        $date_start = strtotime($contract->contract_date);
+
+        // Mise en forme de la date
+
         $mois = array(1=>'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
 
-        // Tableau des jours de la semaine en français
         $jours = array('dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi');
 
-        // Récupérer la date actuelle et la formater en jour, jour du mois, mois et année
-        $dateajd = $jours[date('w')].' '.date('j').' '.$mois[date('n')].' '.date('Y');
+        $dateajd = $jours[date('w', $date_creation)].' '.date('j', $date_creation).' '.$mois[date('n', $date_creation)].' '.date('Y', $date_creation);
 
-        // Récupérer la date depuis l'input (ex: "2024-10-07")
-        $date_input = $contract->contract_date;
+        $dateDebutContrat = $jours[date('w', $date_start)].' '.date('j', $date_start).' '.$mois[date('n', $date_start)].' '.date('Y', $date_start);
 
-        // Convertir en timestamp
-        $timestamp = strtotime($date_input);
 
-        // Formater la date en jour de la semaine, jour du mois, mois et année
-        $dateDebutContrat = $jours[date('w', $timestamp)].' '.date('j', $timestamp).' '.$mois[date('n', $timestamp)].' '.date('Y', $timestamp);
+        // Recuperation du nombre de partenaires
 
         $nbpartner = $contract->partners->count();
+
 
         return view('signature.index', compact('contract_id', 'partner_id', 'contract', 'dateajd', 'dateDebutContrat', 'nbpartner'));
     }

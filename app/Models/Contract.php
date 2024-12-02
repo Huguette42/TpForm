@@ -10,6 +10,7 @@ class Contract extends Model
     use HasFactory;
 
     protected $fillable = [
+        'contract_datecreation',
         'contract_nature',
         'contract_name',
         'contract_adress',

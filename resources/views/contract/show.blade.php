@@ -1,3 +1,14 @@
+{{--
+    Nom du fichier : show.blade.php
+    Description    : Page d'affichage du contrat
+    Auteur         : Hugo Jeanselme
+
+    Utilisation :
+    - Affichage des contrats avec les controles (CRUD)
+    - Bouton de création de contrat
+--}}
+
+
 @extends('layouts.base')
 
 @section('title')
@@ -125,4 +136,8 @@ Contrat
 
 <p>Par moi : <span class="strong">{{$contract->contract_avocate_name}}</span></p>
 </div>
+
+<button class="btn btn-theme ms-3 mt-3" onclick="printcontract()">Imprimer</button>
+
+<script src="{{asset('js/showcontract.js')}}"></script>
 @endsection

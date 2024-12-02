@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('contract_status')->default(0);
+            $table->string('contract_datecreation');
             $table->string('contract_nature');
             $table->string('contract_name');
             $table->string('contract_adress');
