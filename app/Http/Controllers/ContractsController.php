@@ -132,6 +132,7 @@ class ContractsController extends Controller
             return redirect('/')->with('success', 'Contract created');
 
         }
+        
     }
 
 
@@ -420,5 +421,5 @@ class ContractsController extends Controller
         return redirect('/partner');
 
     }
-    
+
 }
