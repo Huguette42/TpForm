@@ -1,3 +1,14 @@
+{{--
+    Nom du fichier : header.blade.php
+    Description    : En-tête de l'application
+    Auteur         : Hugo Jeanselme
+
+    Utilisation :
+    - Mode sombre et clair
+    - Menu déroulant pour la deconnexion et la modification du profil
+--}}
+
+
 
 {{--
     Menu deroulant de navigation

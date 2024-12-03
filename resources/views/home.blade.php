@@ -1,4 +1,15 @@
 {{--
+    Nom du fichier : home.blade.php
+    Description    : Page principale de l'application
+    Auteur         : Hugo Jeanselme
+
+    Utilisation :
+    - Affichage des contrats avec les controles (CRUD)
+    - Bouton de création de contrat
+--}}
+
+
+{{--
     Utilisation de la template : base, dans layouts
 
     Plusieurs sections sont définies : header, title, content

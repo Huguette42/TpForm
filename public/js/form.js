@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
     stepper.innerHTML = `
             <div class="step">
                 <div class="step__circle-large centered" id="stepper1">
-                    <div id='mainStepper' class="step__main step__circle-large step-circle-active position-relative centered" id="stepper1">
+                    <div id='mainStepper' class="step__main step__circle-large step__circle-active position-relative centered" id="stepper1">
                         <div class="step__circle-small step__circle-small-active">
                         </div>
                     </div>

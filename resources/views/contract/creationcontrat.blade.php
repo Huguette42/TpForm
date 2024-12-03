@@ -160,7 +160,7 @@ Creer un contrat
 
                 @for ($i = 0; $i < count($partners); $i++)
 
-                    <div class="m-3 inputdivcontr">
+                    <div class="m-3 contribution">
 
                         <h2 id="contribtitle{{$i}}">Contribution {{$partners[$i]->partner_name}}</h2>
 

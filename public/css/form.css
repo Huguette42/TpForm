@@ -20,6 +20,10 @@ textarea {
     resize: none;
 }
 
+.contribution {
+    width: 360px;
+}
+
 
 /*
     Block de la barre de progretion
@@ -82,6 +86,9 @@ textarea {
     background-color: var(--done-color) !important;
 }
 
+.step__circle-active {
+    background-color: var(--corn-color) !important;
+}
 
 
 /*
@@ -130,9 +137,11 @@ textarea {
 
 
 
+/*
+    Block du choix de partenaire
+*/
 
-
-#mainpartner {
+.partner {
     background-color: var(--beige-color)!important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -141,28 +150,24 @@ textarea {
     position: relative;
 }
 
-
-
-
-
-
-
-
-.modes {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+.partner__item{
+    background-color: var(--buff-color);
+    border-radius: 15px;
 }
 
+/*
+    Checkbox
+*/
 
 
 
 
 
 
-.inputdivcontr {
-    width: 360px;
-}
+
+
+
+
 
 
 
@@ -171,10 +176,7 @@ textarea {
 }
 
 
-.partner{
-    background-color: var(--buff-color);
-    border-radius: 15px;
-}
+
 
 .partnercheck:checked {
     background-color: var(--done-color);
