@@ -2,12 +2,12 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ../Dockerfile
     container_name: laravel_app_combined
     ports:
       - "8080:80"
     volumes:
-      - .:/app
+      - ..:/app
       - /app/vendor
     environment:
       PHP_DISPLAY_ERRORS: "1"
