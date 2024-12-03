@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-center py-4">
+<div class="main-block d-flex justify-content-center py-4">
     <div class="block p-5">
         <h1 class="title">Merci de verifier votre email</h1>
 
