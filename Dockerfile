@@ -16,9 +16,6 @@ ENV WEB_DOCUMENT_ROOT /app
 ENV APP_ENV production
 WORKDIR /app
 COPY . .
-# On copie le fichier .env.example pour le renommer en .env
-# Vous pouvez modifier le .env.example pour indiquer la configuration de votre site pour la production
-RUN cp -n .env.example .env
 # Installation et configuration de votre site pour la production
 # https://laravel.com/docs/10.x/deployment#optimizing-configuration-loading
 RUN composer install
