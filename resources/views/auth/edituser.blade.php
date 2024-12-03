@@ -37,13 +37,13 @@
             <label for="Mot_de_passe form-label">Mot de passe</label>
             <div class="passdiv ">
                 <input class="inputpass form-control" type="password" oninput="validatePassword(this.value)" name="Mot_de_passe"/>
-                <img class="passimg" src="img/eyeo.svg" style="height: 32px;margin-right: 10px" onclick="togglePasswordVisibilityRegister(1)"/>
+                <img class="passimg" src="img/eyeo.svg" style="height: 32px;margin-right: 10px" onclick="togglePasswordVisibility(1)"/>
             </div>
 
             <label for="Mot_de_passe_confirmation form-label">Confirmation mot de passe</label>
             <div class="passdiv">
                 <input class="inputpass form-control" type="password" name="Mot_de_passe_confirmation"/>
-                <img class="passimg" src="img/eyeo.svg" style="height: 32px;margin-right: 10px" onclick="togglePasswordVisibilityRegister(2)"/>
+                <img class="passimg" src="img/eyeo.svg" style="height: 32px;margin-right: 10px" onclick="togglePasswordVisibility(2)"/>
             </div>
             <div class="form-group">
                 <ul>

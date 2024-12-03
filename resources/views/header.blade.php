@@ -65,9 +65,9 @@
 
     <div class="d-flex w-30 justify-content-center align-items-center">
 
-        <img class="header__chevron" id="chevronimg" src="{{ asset('img/down-chevron.png') }}"/>
+        <img class="header__chevron" id="chevronimg" src="{{ asset("img/down-chevron.png") }}"/>
 
-        <img class="header__user" id="userimg" src="{{ asset('img/user.png') }}" onclick="showmenu()"/>
+        <img class="header__user" id="userimg" src="{{ asset("img/user.png") }}" onclick="showmenu()"/>
 
         <img class="header__image-mode d-none" id="mode-dark" src="{{asset("img/soleil.png")}}" alt="soleil" onclick="changemode('light')">
 
