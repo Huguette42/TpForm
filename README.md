@@ -121,7 +121,7 @@ Le schéma de la base de données inclut les tables suivantes :
 - **contract_partner** : Table pivot reliant les deux tables
 
 <p align="center">
-  <img src="chemin/vers/schema_base_donnees.png" alt="Schéma de la base de données" width="75%">
+  <img src="public/BDD.png" alt="Schéma de la base de données" width="75%">
 </p>
 
 ---
