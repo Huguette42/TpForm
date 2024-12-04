@@ -18,8 +18,14 @@ Une application Laravel complète pour la gestion des contrats de partenariat, a
 - **Modification** et **suppression** des contrats existants.
 - **Téléchargement des contrats en PDF** pour un usage hors ligne.
 
+### 🤝 Gestion des partenaires
+- **Création de partenaires** : Ajout facile de nouveaux partenaires avec un formulaire dédié.
+- **Recherche de partenaires** : Moteur de recherche pour retrouver rapidement un partenaire spécifique.
+- **Sélection de partenaires** : Possibilité de sélectionner un ou plusieurs partenaires pour effectuer des actions groupées.
+- **Suppression de partenaires** : Gestion des partenaires en permettant leur suppression de manière sécurisée.
+
 ### 💻 Interface utilisateur
-- **Design moderne et responsive** grâce à Bootstrap.
+- **Design moderne** grâce à Bootstrap.
 - **Animations CSS et interactions JavaScript** pour une expérience utilisateur fluide et agréable.
 
 ---
@@ -37,49 +43,86 @@ Une application Laravel complète pour la gestion des contrats de partenariat, a
 ### 📄 PDF
 - **Génération de PDF** : Conversion des contrats en documents téléchargeables.
 
-### ✉️ Vérification e-mail
-- **Validation des comptes utilisateurs** via un système d'e-mails sécurisé.
-
 ---
 
 ## 🚀 Installation
 
 ### Prérequis
-- XAMPP (PHP 8.0 ou supérieur, MySQL).
-- Composer.
-- Node.js (pour la compilation des assets frontend).
+
+- Docker et Docker Compose.
 
 ### Étapes
 
 1. **Cloner le dépôt**
    ```bash
-   git clone [https://github.com/votre-repository/nom-du-projet.git](https://github.com/Huguette42/TpForm.git)
-   cd TpForm
+   git clone https://github.com/votre-repository/nom-du-projet.git
+   cd nom-du-projet
    ```
 
-2. **Démarrer les conteneurs Docker**
-   Assurez-vous que Docker et Docker Compose sont installés sur votre machine.
-
+2. **Configurer l'environnement**
+   Copiez le fichier `.env.example` pour créer un fichier `.env` :
    ```bash
-   sudo docker-compose up -d
+   cp .env.example .env
    ```
+   Configurez vos informations de base de données dans le fichier `.env`.
 
-3. **Accéder au conteneur de l'application**
-   Une fois les conteneurs démarrés, connectez-vous au conteneur de l'application Laravel :
-
+3. **Démarrer le conteneur Docker**
    ```bash
-   sudo docker-compose exec app bash
+   ./vendor/bin/sail up -d
    ```
 
 4. **Exécuter les migrations**
-   À l'intérieur du conteneur, lancez les migrations pour configurer la base de données :
-
    ```bash
-   php artisan migrate --force
+   ./vendor/bin/sail artisan migrate
    ```
 
-5. **Accéder à l'application**
-   Votre application est maintenant accessible via [http://localhost:8080](http://localhost:8080).
+5. **Démarrer le serveur de développement**
+   Accédez à l'application via [http://localhost](http://localhost).
+
+### 🔧 En cas de problème
+Si vous rencontrez des erreurs de permissions, exécutez la commande suivante pour attribuer les droits d'écriture sur tous les fichiers du projet :
+
+```bash
+sudo chmod -R 777 .
+```
+
+---
+
+## 📊 Structure du projet
+
+### Routes
+Les routes sont définies dans le fichier `routes/web.php`. Chaque route est associée à un contrôleur qui gère la logique métier.
+
+### Contrôleurs
+Les controlleurs sont définies dans le dossier `app/Http/Controllers`
+
+- **AuthController** : Gère la gestion des utilisateurs (inscription, connexion, mise à jour des informations).
+- **ContractController** : Gère la création, la modification, la suppression et le téléchargement des contrats.
+- **HomeController** : Gère l'affichage de la page Home.
+- **SignatureController** : Gestion des signatures (stockage, affichage dans les pages et page de signature).
+
+### Modèles
+- **User** : Modèle représentant les utilisateurs de l'application.
+- **Contract** : Modèle pour la gestion des contrats.
+- **Partenaire** : Modèle pour la gestion des partenaires
+
+### Middleware
+Les middlewares utilisés sont :
+- `auth` pour restreindre l'accès aux fonctionnalités aux utilisateurs connectés.
+- `signed` qui permet de restreindre l'accès au Url signé uniquement
+
+### Base de données
+La base de donnée est generé a partir des fichier de migration dans `/database/migrations`
+
+Le schéma de la base de données inclut les tables suivantes :
+- **users** : Informations sur les utilisateurs.
+- **contracts** : Information sur les contrats créés.
+- **partners** : Informations sur les partenaire.
+- **contract_partner** : Table pivot reliant les deux tables
+
+<p align="center">
+  <img src="chemin/vers/schema_base_donnees.png" alt="Schéma de la base de données" width="75%">
+</p>
 
 ---
 

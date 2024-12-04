@@ -1,5 +1,5 @@
 {{--
-    Nom du fichier : creationcontrat.html
+    Nom du fichier : creationcontrat.blade.php
     Description    : Page de création de contrat
     Auteur         : Hugo Jeanselme
 

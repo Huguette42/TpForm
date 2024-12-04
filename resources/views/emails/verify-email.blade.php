@@ -1,3 +1,16 @@
+{{--
+    Nom du fichier : verify-email.blade.php
+    Description    : Page de création de contrat
+    Auteur         : Hugo Jeanselme
+
+    Utilisation :
+    - Page de mail pris sur internet
+    - Redirige vers la page de verification de l'email
+--}}
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>

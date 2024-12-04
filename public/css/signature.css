@@ -1,26 +1,26 @@
-#refreshimg {
+.signature__img {
     height: 40px;
 }
 
 
-.signature {
+.signature__block {
     height: 100px;
 width: 200px;
 border: solid 1px #000;
 }
 
-.signimg {
+.signature__show {
     height: 100px;
     width: 200px;
     cursor: pointer;
 }
 
-.titlesign {
+.signature__title {
     text-align: center;
     color: var(--text-color);
 }
 
-.downimg {
+.signature__down-img {
     height: 45px;
     margin-left: 10px;
     margin-right: 10px;

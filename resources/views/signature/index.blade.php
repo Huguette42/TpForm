@@ -1,3 +1,15 @@
+{{--
+    Nom du fichier : index.blade.php
+    Description    : Page de signature du contrat
+    Auteur         : Hugo Jeanselme
+
+    Utilisation :
+    - Affichage du contrat pour la lecture avant signature
+    - Signature du contrat a l'aide de la souris
+--}}
+
+
+
 @extends('layouts.base')
 
 @section('header')
@@ -11,7 +23,7 @@
 
 @section('content')
 <div class="px-5 py-3" id="contrat">
-    <h1 class="titlesign"><img class="downimg" src="{{asset('img/down.png')}}"> Veuillez signer le contrat en bas <img class="downimg" src="{{asset('img/down.png')}}"></h1><br>
+    <h1 class="signature__title"><img class="signature__down-img" src="{{asset('img/down.png')}}"> Veuillez signer le contrat en bas <img class="signature__down-img" src="{{asset('img/down.png')}}"></h1><br>
     <h1>Contrat de Partenariat Commercial</h1>
 
     <p>Ce contrat est fait ce jour <span class="strong">{{$dateajd}}</span>, en <span class="strong">{{$nbpartner}}</span> copies originales, entre</p>
@@ -115,9 +127,14 @@
 
     <div class="d-flex aligns-items-center">
         <canvas class="border border-2" id="signature" width=400 height=200></canvas>
-        <button class="btn btn-theme" onclick="clearSignature()"><img id="refreshimg" src="{{asset('img/refresh.png')}}"></button>
+        <button class="btn btn-theme" onclick="clearSignature()"><img class="signature__img" src="{{asset('img/refresh.png')}}"></button>
     </div>
     <button class="btn btn-success btn-lg mt-3" onclick="saveSignature()">Signer</button>
+
+    {{--
+        Envoie du formulaire avec une URL signée pour eviter requete non legitime
+    --}}
+
     <form id="signform" action="{{ URL::signedRoute('signature.store', ['contract_id' => $contract_id, 'partner_id' => $partner_id]) }}" method="POST">
         @csrf
         @method('PUT')

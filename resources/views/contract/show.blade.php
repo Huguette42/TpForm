@@ -4,8 +4,8 @@
     Auteur         : Hugo Jeanselme
 
     Utilisation :
-    - Affichage des contrats avec les controles (CRUD)
-    - Bouton de création de contrat
+    - Affichage du contrat avec les informations remplies
+    - Bouton d'impression
 --}}
 
 
@@ -124,11 +124,11 @@ Contrat
 <ul>
     @foreach ($contract->partners as $partner)
         @if ($partner->pivot->partner_signature)
-            <div class='signature'><img class="signimg" src="{{ URL::signedRoute('signature.show', ['contract_id' => $contract->id, 'partner_id' => $partner->id]) }}" alt="signature"></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
+            <div class='signature__block'><img class="signature__show" src="{{ URL::signedRoute('signature.show', ['contract_id' => $contract->id, 'partner_id' => $partner->id]) }}" alt="signature"></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
             <br>
 
         @else
-            <div class='signature'></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
+            <div class='signature__block'></div><br><div>{{$partner->partner_name}} {{$partner->partner_firstname}}</div>
             <br>
         @endif
     @endforeach

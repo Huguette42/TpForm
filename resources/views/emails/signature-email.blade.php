@@ -1,3 +1,14 @@
+{{--
+    Nom du fichier : signature-email.blade.php
+    Description    : Page de création de contrat
+    Auteur         : Hugo Jeanselme
+
+    Utilisation :
+    - Page de mail pris sur internet
+    - Redirige vers la page de signature du contrat
+--}}
+
+
 <!DOCTYPE html>
 <html>
 <head>
