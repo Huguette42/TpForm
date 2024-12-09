@@ -9,6 +9,10 @@
 --}}
 
 
+<script>
+    const BASE_URL = {{asset('')}};
+</script>
+
 
 {{--
     Menu deroulant de navigation

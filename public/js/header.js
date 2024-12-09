@@ -26,8 +26,8 @@ function changemode(mode) {
 
         // Changement de couleur des images du header
 
-        document.getElementById('userimg').src = 'img/user.png';
-        document.getElementById('chevronimg').src = 'img/down-chevron.png';
+        document.getElementById('userimg').src = BASE_URL+'img/user.png';
+        document.getElementById('chevronimg').src = BASE_URL+'img/down-chevron.png';
 
         // Enregistrement de l'etat du mode pour le rendre resistant au changement de page
 
@@ -40,13 +40,13 @@ function changemode(mode) {
         document.getElementById("mode-dark").classList.remove("d-none");
         document.getElementById("mode-light").classList.add("d-none");
 
-        document.getElementById('userimg').src = 'img/userb.png';
-        document.getElementById('chevronimg').src = 'img/down-chevronb.png';
+        document.getElementById('userimg').src = BASE_URL+'img/userb.png';
+        document.getElementById('chevronimg').src = BASE_URL+'img/down-chevronb.png';
 
         localStorage.setItem('theme', mode)
 
     }
-    
+
 }
 
 
