@@ -59,7 +59,7 @@ https://formulaire.hugojsm.work
 
 1. **Cloner le dépôt**
    ```bash
-   git clone [https://github.com/votre-repository/nom-du-projet.git](https://github.com/Huguette42/TpForm.git)
+   git clone https://github.com/Huguette42/TpForm.git
    cd nom-du-projet
    ```
 
